@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>JasperAI</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            background: #f1f5f9;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .workspace {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px;
+            overflow: auto;
+        }
+
+        iframe {
+            width: 794px;
+            height: 1123px;
+            border: none;
+            background: white;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+            border-radius: 2px;
+            display: block;
+        }
+
+        /* ── Sidebar ── */
+
+        .sidebar {
+            width: 220px;
+            background: white;
+            box-shadow: -2px 0 12px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidebar-top {
+            padding: 14px 14px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .logo-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo {
+            width: 26px;
+            height: 26px;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .logo-title { font-size: 14px; font-weight: 700; color: #1e293b; }
+
+        select {
+            width: 100%;
+            padding: 7px 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #1e293b;
+            background: white;
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+        select:focus { border-color: #3b82f6; }
+
+        .divider { height: 1px; background: #f1f5f9; margin: 10px 0 0; }
+
+        /* ── Element editor ── */
+
+        .element-editor {
+            flex: 1;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+        }
+
+        .editor-placeholder {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 14px;
+        }
+
+        .editor-placeholder-text {
+            font-size: 12px;
+            color: #cbd5e1;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .legend {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-self: stretch;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .field-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #94a3b8;
+        }
+
+        .type-toggle {
+            display: flex;
+            gap: 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .type-btn {
+            flex: 1;
+            padding: 7px 6px;
+            border: none;
+            background: white;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            color: #94a3b8;
+            transition: background 0.12s, color 0.12s;
+            width: auto;
+        }
+        .type-btn:first-child { border-right: 1px solid #e2e8f0; }
+        .type-btn.active-dynamic { background: #eff6ff; color: #3b82f6; font-weight: 700; }
+        .type-btn.active-static  { background: #fffbeb; color: #d97706; font-weight: 700; }
+        .type-btn:hover:not(.active-dynamic):not(.active-static) { background: #f8fafc; color: #475569; }
+
+        .content-input {
+            width: 100%;
+            padding: 7px 9px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #1e293b;
+            outline: none;
+            font-family: inherit;
+            resize: none;
+            line-height: 1.5;
+        }
+        .content-input.mono {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: #3b82f6;
+        }
+        .content-input:focus { border-color: #3b82f6; }
+
+        .elem-id {
+            font-size: 10px;
+            color: #cbd5e1;
+            font-family: monospace;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* ── Bottom ── */
+
+        .sidebar-bottom {
+            padding: 10px 14px 14px;
+            border-top: 1px solid #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .status {
+            font-size: 11px;
+            color: #94a3b8;
+            min-height: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: background 0.15s, opacity 0.15s;
+        }
+        button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .btn-extract  { background: #f1f5f9; color: #475569; }
+        .btn-extract:hover:not(:disabled)  { background: #e2e8f0; }
+        .btn-generate { background: #3b82f6; color: white; }
+        .btn-generate:hover:not(:disabled) { background: #2563eb; }
+
+        .spinner {
+            width: 10px; height: 10px;
+            border: 2px solid #93c5fd;
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            flex-shrink: 0;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div class="workspace">
+    <iframe id="documentFrame" src="archive/source/c2c.html"></iframe>
+</div>
+
+<div class="sidebar">
+    <div class="sidebar-top">
+        <div class="logo-row">
+            <div class="logo">J</div>
+            <div class="logo-title">JasperAI</div>
+        </div>
+        <select id="templateSelect" onchange="changeTemplate(this.value)">
+            <option value="archive/source/c2c.html">c2c</option>
+            <option value="archive/source/credit-1.html">credit-1</option>
+            <option value="archive/source/credit-2.html">credit-2</option>
+            <option value="archive/source/credit-3.html">credit-3</option>
+            <option value="archive/source/credit-4.html">credit-4</option>
+            <option value="archive/source/credit-5.html">credit-5</option>
+            <option value="archive/source/reclamation.html">reclamation</option>
+        </select>
+        <select id="formatSelect" title="Целевой формат отчёта">
+            <option value="A4" selected>A4</option>
+            <option value="A3">A3</option>
+            <option value="A5">A5</option>
+            <option value="LETTER">Letter</option>
+            <option value="LEGAL">Legal</option>
+        </select>
+        <div class="divider"></div>
+    </div>
+
+    <!-- Placeholder shown when nothing selected -->
+    <div class="editor-placeholder" id="editorPlaceholder">
+        <div class="legend" id="legend" style="display:none">
+            <div class="legend-item">
+                <div class="legend-dot" style="background:#3b82f6"></div>
+                Поле данных
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot" style="background:#f59e0b"></div>
+                Статичный текст
+            </div>
+        </div>
+        <div class="editor-placeholder-text" id="placeholderText">
+            Нажмите «Извлечь»,<br>затем кликните на элемент
+        </div>
+    </div>
+
+    <!-- Element editor shown when element is selected -->
+    <div class="element-editor" id="elementEditor" style="display:none">
+        <div>
+            <div class="field-label" style="margin-bottom:6px">Тип</div>
+            <div class="type-toggle">
+                <button class="type-btn" id="btnDynamic" onclick="setType('TEXT_FIELD')">Поле данных</button>
+                <button class="type-btn" id="btnStatic"  onclick="setType('STATIC_TEXT')">Статичный текст</button>
+            </div>
+        </div>
+        <div>
+            <div class="field-label" style="margin-bottom:6px" id="contentLabel">Значение</div>
+            <input class="content-input" id="contentInput" type="text" oninput="updateContent(this.value)">
+        </div>
+        <div class="elem-id" id="elemId"></div>
+    </div>
+
+    <div class="sidebar-bottom">
+        <div class="status" id="status"></div>
+        <button class="btn-extract"  id="extractBtn"  onclick="doExtract()">↺ Извлечь</button>
+        <button class="btn-generate" id="generateBtn" onclick="doGenerate()" disabled>▶ Сгенерировать</button>
+    </div>
+</div>
+
+<script>
+    const API = 'http://localhost:8080/api/report';
+    const COLOR_DYNAMIC = '#3b82f6';
+    const COLOR_STATIC  = '#f59e0b';
+
+    let llmData = null;
+    let layoutData = null;
+    let busy = false;
+    let selectedIndex = -1;
+
+    // ── Template ──────────────────────────────────────────────────────────
+
+    function changeTemplate(src) {
+        document.getElementById('documentFrame').src = src;
+        llmData = null;
+        layoutData = null;
+        selectedIndex = -1;
+        setStatus('');
+        document.getElementById('generateBtn').disabled = true;
+        showPlaceholder('Нажмите «Извлечь»,\nзатем кликните на элемент');
+        document.getElementById('legend').style.display = 'none';
+    }
+
+    // ── Status / UI ───────────────────────────────────────────────────────
+
+    function setStatus(text, loading) {
+        const el = document.getElementById('status');
+        el.innerHTML = loading ? `<div class="spinner"></div>${text}` : text;
+    }
+
+    function setBusy(val) {
+        busy = val;
+        document.getElementById('extractBtn').disabled = val;
+        document.getElementById('generateBtn').disabled = val || !llmData;
+    }
+
+    function showPlaceholder(text) {
+        document.getElementById('editorPlaceholder').style.display = 'flex';
+        document.getElementById('elementEditor').style.display = 'none';
+        document.getElementById('placeholderText').innerHTML = text.replace('\n', '<br>');
+    }
+
+    function showEditor(index) {
+        selectedIndex = index;
+        const el = llmData.elements[index];
+        const isDynamic = el.type === 'TEXT_FIELD';
+
+        document.getElementById('editorPlaceholder').style.display = 'none';
+        document.getElementById('elementEditor').style.display = 'flex';
+
+        document.getElementById('btnDynamic').className = 'type-btn' + (isDynamic  ? ' active-dynamic' : '');
+        document.getElementById('btnStatic').className  = 'type-btn' + (!isDynamic ? ' active-static'  : '');
+
+        const input = document.getElementById('contentInput');
+        input.value = el.content || '';
+        input.className = 'content-input' + (isDynamic ? ' mono' : '');
+        input.placeholder = isDynamic ? 'fieldName' : 'Текст элемента';
+
+        document.getElementById('contentLabel').textContent = isDynamic ? 'Имя поля' : 'Текст';
+        document.getElementById('elemId').textContent = el.elementId ? 'id: ' + el.elementId : '';
+    }
+
+    // ── Extract ───────────────────────────────────────────────────────────
+
+    function scanLayout() {
+        const doc = document.getElementById('documentFrame').contentWindow.document;
+        return Array.from(doc.querySelectorAll(
+            '[class*="Pixso-paragraph"], [class*="Pixso-rectangle"], [class*="stroke-wrapper"]'
+        )).flatMap(el => {
+            const r = el.getBoundingClientRect();
+            return r.width && r.height
+                ? [{ id: el.id || 'no-id', x: Math.round(r.x), y: Math.round(r.y), width: Math.round(r.width), height: Math.round(r.height) }]
+                : [];
+        });
+    }
+
+    function getMainContainerSize() {
+        const doc = document.getElementById('documentFrame').contentWindow.document;
+        const root = doc.querySelector('[class*="Pixso-frame"]');
+        if (root) {
+            const r = root.getBoundingClientRect();
+            if (r.width && r.height) {
+                return { pageWidth: Math.round(r.width), pageHeight: Math.round(r.height) };
+            }
+        }
+        return {
+            pageWidth: Math.round(doc.documentElement.scrollWidth || doc.body.scrollWidth),
+            pageHeight: Math.round(doc.documentElement.scrollHeight || doc.body.scrollHeight)
+        };
+    }
+
+    async function doExtract() {
+        if (busy) return;
+        setBusy(true);
+        clearOverlays();
+        selectedIndex = -1;
+        showPlaceholder('Анализ...');
+        setStatus('Анализ ИИ...', true);
+
+        try {
+            layoutData = scanLayout();
+            const html = document.getElementById('documentFrame').contentWindow.document.documentElement.outerHTML;
+
+            const res = await fetch(API + '/extract', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ html })
+            });
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            llmData = await res.json();
+
+            applyOverlays();
+            showPlaceholder('Кликните на элемент\nдля редактирования');
+            document.getElementById('legend').style.display = 'flex';
+            setStatus('');
+        } catch (e) {
+            setStatus('Ошибка: ' + e.message);
+            showPlaceholder('Ошибка извлечения');
+            console.error(e);
+        } finally {
+            setBusy(false);
+        }
+    }
+
+    // ── Overlays ──────────────────────────────────────────────────────────
+
+    function clearOverlays() {
+        const doc = document.getElementById('documentFrame').contentWindow.document;
+        doc.getElementById('__jov__')?.remove();
+        doc.getElementById('__jst__')?.remove();
+    }
+
+    function applyOverlays() {
+        const doc = document.getElementById('documentFrame').contentWindow.document;
+        clearOverlays();
+        doc.body.style.position = 'relative';
+
+        const style = doc.createElement('style');
+        style.id = '__jst__';
+        style.textContent = `
+            .__jov {
+                position: absolute; box-sizing: border-box;
+                pointer-events: all; z-index: 9999;
+                cursor: pointer; transition: border-color 0.1s;
+            }
+        `;
+        doc.head.appendChild(style);
+
+        const container = doc.createElement('div');
+        container.id = '__jov__';
+        container.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;';
+        doc.body.appendChild(container);
+
+        const scrollTop  = doc.documentElement.scrollTop  || doc.body.scrollTop  || 0;
+        const scrollLeft = doc.documentElement.scrollLeft || doc.body.scrollLeft || 0;
+
+        llmData.elements.forEach((el, index) => {
+            if (el.type !== 'TEXT_FIELD' && el.type !== 'STATIC_TEXT') return;
+            if (!el.elementId) return;
+            const domEl = doc.getElementById(el.elementId);
+            if (!domEl) return;
+
+            const rect = domEl.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
+
+            const isDynamic = el.type === 'TEXT_FIELD';
+            const isSelected = index === selectedIndex;
+            const color = isDynamic ? COLOR_DYNAMIC : COLOR_STATIC;
+
+            const ov = doc.createElement('div');
+            ov.className = '__jov';
+            ov.dataset.index = index;
+            ov.style.cssText = `
+                left: ${rect.left + scrollLeft}px;
+                top:  ${rect.top  + scrollTop}px;
+                width: ${rect.width}px;
+                height: ${rect.height}px;
+                border: ${isSelected ? '2px' : '1.5px'} solid ${isSelected ? color : color + '88'};
+                box-shadow: ${isSelected ? `0 0 0 3px ${color}22` : 'none'};
+            `;
+            ov.addEventListener('click', () => {
+                selectedIndex = index;
+                showEditor(index);
+                applyOverlays();
+            });
+            container.appendChild(ov);
+        });
+    }
+
+    // ── Sidebar editor actions ─────────────────────────────────────────────
+
+    function setType(type) {
+        if (selectedIndex < 0 || !llmData) return;
+        llmData.elements[selectedIndex].type = type;
+        showEditor(selectedIndex);
+        applyOverlays();
+    }
+
+    function updateContent(value) {
+        if (selectedIndex < 0 || !llmData) return;
+        llmData.elements[selectedIndex].content = value;
+    }
+
+    // ── Generate ──────────────────────────────────────────────────────────
+
+    async function doGenerate() {
+        if (busy || !llmData) return;
+        setBusy(true);
+        setStatus('Генерация...', true);
+
+        try {
+            const html = document.getElementById('documentFrame').contentWindow.document.documentElement.outerHTML;
+            const res = await fetch(API + '/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    html,
+                    coordinates: layoutData,
+                    llmTemplateData: llmData,
+                    targetFormat: document.getElementById('formatSelect').value,
+                    ...getMainContainerSize()
+                })
+            });
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const jrxml = await res.text();
+
+            const blob = new Blob([jrxml], { type: 'application/xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = 'report.jrxml'; a.click();
+            URL.revokeObjectURL(url);
+            setStatus('Файл скачан');
+        } catch (e) {
+            setStatus('Ошибка: ' + e.message);
+            console.error(e);
+        } finally {
+            setBusy(false);
+        }
+    }
+</script>
+</body>
+</html>

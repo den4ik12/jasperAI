@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<style name="Style_ArialRegular_11_R" fontName="Arial-Regular" fontSize="11"/>
+	<style name="Style_ArialBold_10_B" fontName="Arial-Bold" fontSize="10" isBold="true"/>
+	<style name="Style_ArialRegular_10_R" fontName="Arial-Regular" fontSize="10"/>
+	<field name="signatureInfo" class="java.lang.String"/>
+	<detail>
+		<band height="490" splitType="Stretch">
+			<staticText>
+				<reportElement style="Style_ArialRegular_11_R" positionType="Float" x="38" y="28" width="541" height="300" forecolor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top"/>
+				<text><![CDATA[SMS-сообщения/Push-уведомления. Установление режима «Фикс» осуществляется Банком в день подписания мной Дополнительного соглашения.
+
+3.2. Дополнительное соглашение вступает в силу в дату принятия (акцепта) Банком моего Предложения (оферты) и действует до полного исполнения Сторонами обязательств по Договору, неотъемлемой частью которого оно является. Датой заключения Дополнительного соглашения будет являться дата акцепта Банком моего Предложения (оферты) о заключении Дополнительного соглашения.
+
+3.3. С даты заключения Дополнительного соглашения дальнейшее исполнение Договора осуществляется Сторонами на условиях режима «Фикс», предусмотренных Общими условиями. Все остальные условия Договора, изменение которых не предусмотрено Дополнительным соглашением, сохраняют свою силу и действуют в полном объеме.
+
+3.4. Термины, используемые в Дополнительном соглашении и не определенные по тексту, применяются в том значении, в котором они используются в Договоре.
+
+4. Дополнительное соглашение оформлено мной в виде электронного документа и подписано простой электронной подписью, сформированной в соответствии с ранее заключенным между мной и Банком Договором банковского обслуживания, в порядке, определенном Правилами электронного взаимодействия.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Style_ArialBold_10_B" positionType="Float" x="38" y="376" width="234" height="30" forecolor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top"/>
+				<text><![CDATA[Дополнительное соглашение подписано простой электронной подписью Клиента]]></text>
+			</staticText>
+			<frame>
+				<reportElement positionType="Float" x="38" y="410" width="237" height="80" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{signatureInfo}!=null]]></printWhenExpression>
+				</reportElement>
+				<rectangle>
+					<reportElement mode="Opaque" x="0" y="0" width="237" height="80" backcolor="#F7F6F6"/>
+				</rectangle>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_ArialRegular_10_R" positionType="Float" x="10" y="10" width="213" height="62" isRemoveLineWhenBlank="true" forecolor="#CE3D35"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{signatureInfo}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

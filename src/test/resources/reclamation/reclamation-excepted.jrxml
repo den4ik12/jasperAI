@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="GeneratedReport" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0"
+              topMargin="0" bottomMargin="0" uuid="d99740ba-6956-4950-8aef-77fafbce361a">
+    <style name="Style_Arial_11_B" fontName="Arial" fontSize="11" isBold="true"/>
+    <style name="Style_Arial_0_R" fontName="Arial"/>
+    <style name="Style_Arial_9_R" fontName="Arial" fontSize="9"/>
+    <style name="Style_Arial_10_B" fontName="Arial" fontSize="10" isBold="true"/>
+    <detail>
+        <band height="813" splitType="Stretch">
+            <image>
+                <reportElement x="217" y="31" width="160" height="25" uuid="e226dfd5-34a0-4b0f-a432-c086040590fc"/>
+                <imageExpression><![CDATA["./image/a1306468cdde47eae62ac260122012f971913560.png"]]></imageExpression>
+            </image>
+            <staticText>
+                <reportElement style="Style_Arial_11_B" positionType="Float" x="245" y="72" width="103" height="14"
+                               forecolor="#000000" uuid="a8982d0e-0662-4758-8864-d433c567b631"/>
+                <textElement textAlignment="Left" verticalAlignment="Top"/>
+                <text><![CDATA[Детали перевода]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Style_Arial_0_R" positionType="Float" x="559" y="802" width="5" height="11"
+                               forecolor="#737373" uuid="efaac46e-e80d-4c03-8cd7-28fb985bad0d"/>
+                <textElement textAlignment="Left" verticalAlignment="Top"/>
+                <text><![CDATA[1]]></text>
+            </staticText>
+            <frame>
+                <reportElement positionType="Float" x="49" y="608" width="451" height="84"
+                               uuid="ef9bbc05-ea66-4df2-92a0-4c727f0321cc"/>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="0" width="82" height="16"
+                                   forecolor="#9999A1" uuid="789d2eae-55d3-4cfa-a48d-3be0f312bc4c"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Статус обращения]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="95" y="0" width="105" height="16"
+                                   forecolor="#000000" uuid="e21aa669-65b0-403f-b1d0-758a34e71ba8"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Обращение отправлено]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="34" width="73" height="16"
+                                   forecolor="#9999A1" uuid="459395b9-3083-4122-83db-4f48bfb561cf"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Дата обращения]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="95" y="34" width="87" height="16"
+                                   forecolor="#000000" uuid="b28a3397-73ca-4d85-9846-eb4ecd1a88be"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[25.07.2025  17:11]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="17" width="82" height="16"
+                                   forecolor="#9999A1" uuid="52747383-6fcd-4ce9-9ec6-4d7b08b0ceb2"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Номер обращения]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="95" y="17" width="53" height="16"
+                                   forecolor="#000000" uuid="3d4fbfe0-583c-429b-80f5-d3e0e045b37c"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[12234456]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="68" width="73" height="16"
+                                   forecolor="#9999A1" uuid="b946ceb2-8379-4e3c-b6fb-16cb57bb8a9b"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Офис банка]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="94" y="68" width="357" height="16"
+                                   forecolor="#000000" uuid="cd4f69c3-361d-4571-9e9f-d9fffddeb35c"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[01032/Доп.офис  №9038/01032 г. Москва, проспект Кутузовский, дом 36А]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="51" width="73" height="16"
+                                   forecolor="#9999A1" uuid="6e5ae95e-e343-4be1-ae59-b3cded858ccf"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[ФИО сотрудника]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="94" y="51" width="117" height="16"
+                                   forecolor="#000000" uuid="a8703b1f-f453-42a6-b8e3-0f8541f9691d"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Алла Сергеевна И.]]></text>
+                </staticText>
+            </frame>
+            <frame>
+                <reportElement positionType="Float" x="24" y="171" width="386" height="32"
+                               uuid="6f753ce5-f312-4ba4-85c8-b7b7eae1ac5a"/>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="0" width="107" height="16"
+                                   forecolor="#9999A1" uuid="b59cf903-9285-4864-adf6-6a88b5492532"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Банк получателя]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="12" width="386" height="20"
+                                   forecolor="#000000" uuid="d76dd599-54cf-47c4-8a06-9a97e7390cd4"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[ZIRKIN-CUTLER INVESTMENTS, A DIVISION OF UNITED CAPITAL FINANCIAL ADVISERS]]></text>
+                </staticText>
+            </frame>
+            <frame>
+                <reportElement positionType="Float" x="24" y="450" width="548" height="91"
+                               uuid="1d635c52-2295-4250-a6e7-51171be0999d"/>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="25" y="41" width="81" height="16"
+                                   forecolor="#9999A1" uuid="c9af21fd-9e34-4d36-9ea5-57ece50f6ca6"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Номер обращения]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="119" y="41" width="42" height="16"
+                                   forecolor="#000000" uuid="b0a3bc89-0a9c-42a1-afe5-003abe45bb65"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[222]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="25" y="58" width="73" height="16"
+                                   forecolor="#9999A1" uuid="a69ab25c-57d8-471c-9553-205cb517625f"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Дата обращения]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="119" y="58" width="87" height="16"
+                                   forecolor="#000000" uuid="702ed5f6-cc62-4ce9-8b0b-b7a4a86293f1"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[29.07.2025  10:03]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="25" y="75" width="79" height="16"
+                                   forecolor="#9999A1" uuid="9cc58743-2f8b-4cf6-ae98-55b7166d1d45"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Текст обращения]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="119" y="75" width="429" height="16"
+                                   forecolor="#000000" uuid="32c6a4f3-3daf-4e88-91aa-4cc4a860d475"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Transfer in progress]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_10_B" positionType="Float" x="0" y="0" width="55" height="13"
+                                   forecolor="#000000" uuid="a355b1da-34cb-4bdf-ad8a-9cba8034bc3f"/>
+                    <textElement textAlignment="Left" verticalAlignment="Top"/>
+                    <text><![CDATA[Входящее]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_10_B" positionType="Float" x="0" y="17" width="385" height="13"
+                                   forecolor="#000000" uuid="f37b69d6-6855-416b-81a5-bfd467513c36"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Ответ на «Розыск перевода» номер обращения 12234456 от 25.07.2025]]></text>
+                </staticText>
+            </frame>
+            <frame>
+                <reportElement positionType="Float" x="24" y="95" width="155" height="30"
+                               uuid="2b6eb818-1838-4600-969c-f335c824e93b"/>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="0" width="107" height="16"
+                                   forecolor="#9999A1" uuid="7706330a-6e03-45c6-b039-79319db2f3d2"/>
+                    <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                    <text><![CDATA[Номер счёта получателя]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="14" width="155" height="16"
+                                   forecolor="#000000" uuid="c8b464b5-a023-4b57-9de7-3e99970d1453"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[123456789567657879889098989878]]></text>
+                </staticText>
+            </frame>
+            <frame>
+                <reportElement positionType="Float" x="24" y="133" width="226" height="30"
+                               uuid="a4861666-2c2e-4d28-bce9-5f994d1893c9"/>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="0" width="73" height="16"
+                                   forecolor="#9999A1" uuid="d0a0df87-80f2-4dd0-a594-307c7dcd7e43"/>
+                    <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                    <text><![CDATA[Номер операции]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="14" width="226" height="16"
+                                   forecolor="#000000" uuid="f7de695e-c259-4e41-80fb-0a2fbdb600e0"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[123456789567657879889098989878323333]]></text>
+                </staticText>
+            </frame>
+            <frame>
+                <reportElement positionType="Float" x="297" y="95" width="73" height="30"
+                               uuid="13b667c3-2bc6-418c-8fdb-b5a01f4e84e7"/>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="0" width="73" height="16"
+                                   forecolor="#9999A1" uuid="d231e46f-d739-4e21-a154-4aadae60bff9"/>
+                    <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                    <text><![CDATA[Сумма]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="14" width="42" height="16"
+                                   forecolor="#000000" uuid="6a85f7b3-ac1b-4904-b56b-927a6c8917dc"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[1 000]]></text>
+                </staticText>
+            </frame>
+            <frame>
+                <reportElement positionType="Float" x="24" y="565" width="104" height="31"
+                               uuid="260fab65-45b6-4f67-b929-37f9674e52b2"/>
+                <staticText>
+                    <reportElement style="Style_Arial_10_B" positionType="Float" x="0" y="0" width="61" height="13"
+                                   forecolor="#000000" uuid="ca58a6dd-cc95-44d6-9823-418d5510e438"/>
+                    <textElement textAlignment="Left" verticalAlignment="Top"/>
+                    <text><![CDATA[Исходящее]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_10_B" positionType="Float" x="0" y="15" width="104" height="16"
+                                   forecolor="#000000" uuid="34898d17-548c-4032-b585-2ea76c052881"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Отмена перевода]]></text>
+                </staticText>
+            </frame>
+            <frame>
+                <reportElement positionType="Float" x="24" y="227" width="491" height="199"
+                               uuid="34c95a1e-9cdb-4779-a11c-86405cea19ca"/>
+                <staticText>
+                    <reportElement style="Style_Arial_10_B" positionType="Float" x="0" y="0" width="61" height="13"
+                                   forecolor="#000000" uuid="77f78f40-3130-4cc3-ba66-c9d8335002bf"/>
+                    <textElement textAlignment="Left" verticalAlignment="Top"/>
+                    <text><![CDATA[Исходящее]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="25" y="43" width="82" height="16"
+                                   forecolor="#9999A1" uuid="e0c898b8-9868-4f72-b03c-606ef2955130"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Статус обращения]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="120" y="43" width="105" height="16"
+                                   forecolor="#000000" uuid="f9c8ba2f-d612-4f52-921a-feb8e82f4046"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Обращение отправлено]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="25" y="77" width="73" height="16"
+                                   forecolor="#9999A1" uuid="1a738f40-5790-41e0-ba0e-4dc5f9fe0be8"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Дата обращения]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="120" y="77" width="87" height="16"
+                                   forecolor="#000000" uuid="c666a18d-feb1-4e3f-9ce1-6e99e6d288f1"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[25.07.2025  17:11]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="25" y="60" width="82" height="16"
+                                   forecolor="#9999A1" uuid="15adbf82-c672-4cba-beee-7151935fec45"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Номер обращения]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="120" y="60" width="53" height="16"
+                                   forecolor="#000000" uuid="3a2a4316-eeef-4f17-b2d3-b7c2f41a5b67"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[12234456]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="25" y="110" width="73" height="16"
+                                   forecolor="#9999A1" uuid="2d78f647-b9e8-4140-9426-57b927991e83"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Офис банка]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="119" y="111" width="357" height="16"
+                                   forecolor="#000000" uuid="9d64764d-2289-4c63-9672-5f2b531352b9"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[01032/Доп.офис  №9038/01032 г. Москва, проспект Кутузовский, дом 36А]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="25" y="93" width="73" height="16"
+                                   forecolor="#9999A1" uuid="96684ea9-9ee2-4923-ba8a-51233f7b1a96"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[ФИО сотрудника]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="119" y="94" width="117" height="16"
+                                   forecolor="#000000" uuid="ab62b761-8dfa-459e-871d-3b77b4ceaf1e"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Алла Сергеевна И.]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="25" y="127" width="75" height="16"
+                                   forecolor="#9999A1" uuid="03651f25-0ebc-457a-969f-e9dbf1d7fd80"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Текст обращения]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="119" y="171" width="364" height="28"
+                                   forecolor="#000000" uuid="3b570454-50b6-48d7-9bff-8558eb72268a"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text>
+                        <![CDATA[По переводу S38FL25102845832 на сумму INR 1000 от 28.10.2025. Прошу сообщить дату и сумму зачисления средств на счёт получателя]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="25" y="171" width="79" height="28"
+                                   forecolor="#9999A1" uuid="a35e93be-d9a5-429f-ac5d-3d101b8eadaf"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Текст обращения (рус.)]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="119" y="128" width="372" height="42"
+                                   forecolor="#000000" uuid="45e715e2-6d34-48ff-8fe5-f0676fa27306"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text>
+                        <![CDATA[TRANSFER TRN S38FL25102845832 FOR INR 1000 VALUE 28.10.2025. PLEASE INFORM US OF THE EXACT DATE, AMOUNT AND REFERENCE WITH WITCH THE FUNDS WERE CREDITED TO THE FINAL BENEFICIARY]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_10_B" positionType="Float" x="0" y="15" width="104" height="16"
+                                   forecolor="#000000" uuid="b0d4bc13-6327-4928-a2bb-6a3ba931f647"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[Розыск перевода]]></text>
+                </staticText>
+            </frame>
+            <frame>
+                <reportElement positionType="Float" x="297" y="133" width="85" height="30"
+                               uuid="ef0c37df-8e10-496c-9bcc-17aa5de946b3"/>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="0" width="34" height="16"
+                                   forecolor="#9999A1" uuid="8d0961c8-6b8e-443c-939d-c664cf5038a2"/>
+                    <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                    <text><![CDATA[Валюта]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="14" width="85" height="16"
+                                   forecolor="#000000" uuid="7a53dd88-5274-4a70-97fd-172c6639bb95"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                    <text><![CDATA[INR]]></text>
+                </staticText>
+            </frame>
+        </band>
+    </detail>
+</jasperReport>

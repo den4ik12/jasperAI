@@ -1,0 +1,147 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+APP_JAR="$HOME/.jasperai/app.jar"
+ENV_FILE="$HOME/.jasperai/env"
+LOG_DIR="$HOME/.jasperai/logs"
+LOG_FILE="$LOG_DIR/jasperai.log"
+
+fail() {
+  code="$1"
+  message="$2"
+  next_step="$3"
+
+  echo "JASPERAI_ERROR_CODE=$code" >&2
+  echo "JASPERAI_ERROR_MESSAGE=$message" >&2
+  echo "JASPERAI_NEXT_STEP=$next_step" >&2
+  if [ -n "${LOG_FILE:-}" ] && [ -f "$LOG_FILE" ]; then
+    echo "JASPERAI_LOG_FILE=$LOG_FILE" >&2
+  fi
+  exit 1
+}
+
+fail_with_log_file() {
+  code="$1"
+  message="$2"
+  next_step="$3"
+
+  echo "JASPERAI_ERROR_CODE=$code" >&2
+  echo "JASPERAI_ERROR_MESSAGE=$message" >&2
+  echo "JASPERAI_NEXT_STEP=$next_step" >&2
+  echo "JASPERAI_LOG_FILE=$LOG_FILE" >&2
+  exit 1
+}
+
+if [ ! -f "$APP_JAR" ]; then
+  fail \
+    "APP_JAR_NOT_FOUND" \
+    "app.jar для JasperAI не найден: $APP_JAR" \
+    "Выполните ./scripts/update.sh, чтобы скачать app.jar, затем снова выполните ./scripts/start.sh."
+fi
+
+if [ ! -s "$APP_JAR" ]; then
+  fail \
+    "APP_JAR_EMPTY" \
+    "app.jar для JasperAI пустой или битый: $APP_JAR" \
+    "Выполните ./scripts/update.sh, чтобы скачать app.jar заново, затем снова выполните ./scripts/start.sh."
+fi
+
+if ! mkdir -p "$LOG_DIR"; then
+  fail \
+    "LOG_DIR_CREATE_FAILED" \
+    "Не удалось создать папку логов JasperAI: $LOG_DIR" \
+    "Проверьте права на HOME или создайте папку вручную: mkdir -p '$LOG_DIR'"
+fi
+
+if ! touch "$LOG_FILE"; then
+  fail \
+    "LOG_FILE_WRITE_FAILED" \
+    "Не удалось записать лог-файл JasperAI: $LOG_FILE" \
+    "Проверьте права на файл, затем снова выполните ./scripts/start.sh."
+fi
+
+if ! command -v java >/dev/null 2>&1; then
+  fail \
+    "JAVA_NOT_FOUND" \
+    "Java не установлена или недоступна в PATH." \
+    "Установите Java 17+ и убедитесь, что команда 'java' доступна в PATH, затем снова выполните ./scripts/start.sh."
+fi
+
+java_version="$(java -version 2>&1 | awk -F '"' '/version/ {print $2; exit}')"
+java_major="$(printf '%s' "$java_version" | awk -F. '{ if ($1 == "1") print $2; else print $1 }')"
+if [ -z "$java_major" ] || [ "$java_major" -lt 17 ]; then
+  fail \
+    "JAVA_VERSION_UNSUPPORTED" \
+    "Требуется Java 17+. Текущая версия Java: ${java_version:-unknown}." \
+    "Установите или выберите Java 17+, затем снова выполните ./scripts/start.sh."
+fi
+
+if [ ! -f "$ENV_FILE" ]; then
+  if ! mkdir -p "$(dirname "$ENV_FILE")"; then
+    fail \
+      "ENV_DIR_CREATE_FAILED" \
+      "Не удалось создать папку для env-файла JasperAI: $(dirname "$ENV_FILE")" \
+      "Проверьте права на HOME или создайте папку вручную: mkdir -p '$(dirname "$ENV_FILE")'"
+  fi
+
+  fail \
+    "ENV_FILE_MISSING" \
+    "Файл переменных окружения JasperAI не найден: $ENV_FILE" \
+    "Агент должен спросить у пользователя провайдера и API-ключ, создать '$ENV_FILE' с SPRING_AI_MODEL_CHAT и нужным ключом, выполнить chmod 600 '$ENV_FILE', затем снова выполнить ./scripts/start.sh."
+fi
+
+set -a
+# shellcheck disable=SC1090
+if ! . "$ENV_FILE"; then
+  set +a
+  fail \
+    "ENV_FILE_LOAD_FAILED" \
+    "Не удалось загрузить env-файл JasperAI: $ENV_FILE" \
+    "Проверьте, что '$ENV_FILE' содержит корректные shell-переменные, затем снова выполните ./scripts/start.sh."
+fi
+set +a
+
+provider="${SPRING_AI_MODEL_CHAT:-deepseek}"
+case "$provider" in
+  deepseek)
+    if [ -z "${DEEPSEEK_API_KEY:-}" ]; then
+      fail \
+        "DEEPSEEK_API_KEY_MISSING" \
+        "DEEPSEEK_API_KEY отсутствует в $ENV_FILE." \
+        "Спросите у пользователя API-ключ DeepSeek, добавьте DEEPSEEK_API_KEY в '$ENV_FILE', затем снова выполните ./scripts/start.sh."
+    fi
+    ;;
+  gigachat)
+    if [ -z "${GIGACHAT_API_KEY:-}" ]; then
+      fail \
+        "GIGACHAT_API_KEY_MISSING" \
+        "GIGACHAT_API_KEY отсутствует в $ENV_FILE." \
+        "Спросите у пользователя API-ключ GigaChat, добавьте GIGACHAT_API_KEY в '$ENV_FILE', затем снова выполните ./scripts/start.sh."
+    fi
+    ;;
+  *)
+    fail \
+      "SPRING_AI_MODEL_CHAT_UNSUPPORTED" \
+      "Неподдерживаемый SPRING_AI_MODEL_CHAT в $ENV_FILE: $provider" \
+      "Укажите SPRING_AI_MODEL_CHAT='deepseek' или 'gigachat' в '$ENV_FILE', затем снова выполните ./scripts/start.sh."
+    ;;
+esac
+
+echo "Запускаю JasperAI. Логи: $LOG_FILE"
+set +e
+{
+  echo
+  echo "===== JasperAI start: $(date -u '+%Y-%m-%dT%H:%M:%SZ') ====="
+  echo "APP_JAR=$APP_JAR"
+  echo "SPRING_AI_MODEL_CHAT=$provider"
+  java -jar "$APP_JAR"
+} >> "$LOG_FILE" 2>&1
+exit_code=$?
+set -e
+
+if [ "$exit_code" -ne 0 ]; then
+  fail_with_log_file \
+    "APP_START_FAILED" \
+    "JasperAI завершился с ошибкой. Код выхода: $exit_code." \
+    "Не печатайте лог приложения пользователю. Попросите пользователя передать файл логов '$LOG_FILE' разработчику Денису Володину."
+fi

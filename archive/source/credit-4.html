@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixso HTML</title>
+  <link rel="stylesheet" href="css/font.css">
+  <script src="js/animation.js"></script>
+  <style>
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ol,ul,menu {
+  padding-inline-start: 0;
+  list-style: none;
+}
+
+ol li::marker, ul li::before {
+  letter-spacing: 0;
+}
+
+.scroll-container > div {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.container > div {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.Pixso-canvas-0_1 > div {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body { 
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background-color: white;
+}
+    
+span {
+  word-break: break-word;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.scroll-container {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.Pixso-canvas-0_1 {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.Pixso-frame-2_4 {
+  width: 595px;
+  height: 842px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.Pixso-rectangle-2_258 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: transparent;
+}
+
+.stroke-wrapper-2_258 {
+  position: absolute;
+  left: 14px;
+  top: 28px;
+  width: 135px;
+  height: 320px;
+}
+
+.stroke-2_258 {
+  position: absolute;
+  inset: 0px;
+  border-radius: 0px 0px 0px 0px;
+  border-width: 1px;
+  border-style: solid;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-color: rgba(210.60267639160156, 210.39207458496094, 210.39207458496094, 1);
+}
+
+.Pixso-rectangle-2_259 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: transparent;
+}
+
+.stroke-wrapper-2_259 {
+  position: absolute;
+  left: 148px;
+  top: 28px;
+  width: 434px;
+  height: 320px;
+}
+
+.stroke-2_259 {
+  position: absolute;
+  inset: 0px;
+  border-radius: 0px 0px 0px 0px;
+  border-width: 1px;
+  border-style: solid;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-color: rgba(210.60267639160156, 210.39207458496094, 210.39207458496094, 1);
+}
+
+.Pixso-rectangle-2_260 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: transparent;
+}
+
+.stroke-wrapper-2_260 {
+  position: absolute;
+  left: 14px;
+  top: 28px;
+  width: 135px;
+  height: 480px;
+}
+
+.stroke-2_260 {
+  position: absolute;
+  inset: 0px;
+  border-radius: 0px 0px 0px 0px;
+  border-width: 1px;
+  border-style: solid;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-color: rgba(210.60267639160156, 210.39207458496094, 210.39207458496094, 1);
+}
+
+.Pixso-rectangle-2_261 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: transparent;
+}
+
+.stroke-wrapper-2_261 {
+  position: absolute;
+  left: 148px;
+  top: 28px;
+  width: 434px;
+  height: 480px;
+}
+
+.stroke-2_261 {
+  position: absolute;
+  inset: 0px;
+  border-radius: 0px 0px 0px 0px;
+  border-width: 1px;
+  border-style: solid;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-color: rgba(210.60267639160156, 210.39207458496094, 210.39207458496094, 1);
+}
+
+.Pixso-rectangle-2_262 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: transparent;
+}
+
+.stroke-wrapper-2_262 {
+  position: absolute;
+  left: 14px;
+  top: 28px;
+  width: 135px;
+  height: 614px;
+}
+
+.stroke-2_262 {
+  position: absolute;
+  inset: 0px;
+  border-radius: 0px 0px 0px 0px;
+  border-width: 1px;
+  border-style: solid;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-color: rgba(210.60267639160156, 210.39207458496094, 210.39207458496094, 1);
+}
+
+.Pixso-rectangle-2_263 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: transparent;
+}
+
+.stroke-wrapper-2_263 {
+  position: absolute;
+  left: 148px;
+  top: 28px;
+  width: 434px;
+  height: 614px;
+}
+
+.stroke-2_263 {
+  position: absolute;
+  inset: 0px;
+  border-radius: 0px 0px 0px 0px;
+  border-width: 1px;
+  border-style: solid;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-color: rgba(210.60267639160156, 210.39207458496094, 210.39207458496094, 1);
+}
+
+.Pixso-paragraph-2_265 {
+  font-size: 10px;
+  font-family: "Arial-Bold";
+  font-weight: Bold;
+  line-height: 100%;
+  color: rgba(0, 0, 20, 1);
+  white-space: pre-line;
+  width: 125px;
+  height: 102px;
+  position: absolute;
+  left: 23px;
+  top: 366px;
+}
+
+.Pixso-paragraph-2_266 {
+  font-size: 10px;
+  font-family: "Arial-Bold";
+  font-weight: Bold;
+  line-height: 100%;
+  color: rgba(0, 0, 20, 1);
+  white-space: pre-line;
+  width: 125px;
+  height: 102px;
+  position: absolute;
+  left: 23px;
+  top: 526px;
+}
+
+.Pixso-text-2_267 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: Regular;
+  line-height: 100%;
+  color: rgba(0, 0, 20, 1);
+  width: 400px;
+  height: 292px;
+  position: absolute;
+  left: 164px;
+  top: 46px;
+}
+
+.Pixso-paragraph-2_267_0 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_267_0_1 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  white-space: pre-wrap;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_267_1 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_267_1_1 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  white-space: pre-line;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_267_2 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_267_3 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-text-2_268 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: Regular;
+  line-height: 100%;
+  color: rgba(0, 0, 20, 1);
+  width: 400px;
+  height: 28px;
+  position: absolute;
+  left: 164px;
+  top: 366px;
+}
+
+.Pixso-paragraph-2_268_0 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_268_0_1 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_268_1 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_268_1_1 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_268_2 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-text-2_269 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: Regular;
+  line-height: 100%;
+  color: rgba(0, 0, 20, 1);
+  width: 400px;
+  height: 42px;
+  position: absolute;
+  left: 164px;
+  top: 458px;
+}
+
+.Pixso-paragraph-2_269_0 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_269_0_1 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_269_1 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_269_1_1 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_269_2 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-text-2_270 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: Regular;
+  line-height: 100%;
+  color: rgba(0, 0, 20, 1);
+  width: 400px;
+  height: 110px;
+  position: absolute;
+  left: 164px;
+  top: 526px;
+}
+
+.Pixso-paragraph-2_270_0 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_270_0_1 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_270_1 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_270_1_1 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_270_1_2 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 100%;
+  text-decoration: none;
+  color: rgba(206, 61, 53, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_270_2 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_270_2_1 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_270_2_2 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 100%;
+  text-decoration: none;
+  color: rgba(206, 61, 53, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_270_2_3 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  white-space: pre-line;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_270_3 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_270_4 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-group-2_271 {
+  width: 398px;
+  height: 24px;
+  position: absolute;
+  left: 164px;
+  top: 400px;
+}
+
+.Pixso-group-2_272 {
+  width: 57px;
+  height: 24px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.Pixso-rectangle-2_273 {
+  width: 57px;
+  height: 24px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-color: rgba(247.03125, 246.78421020507812, 246.78421020507812, 1);
+}
+
+.Pixso-text-2_274 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: Regular;
+  line-height: 100%;
+  color: rgba(206, 61, 53, 1);
+  width: 44px;
+  height: 14px;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+}
+
+.Pixso-paragraph-2_274_0 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_274_0_1 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(206, 61, 53, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_274_0_2 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 100%;
+  text-decoration: none;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_274_1 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-frame-2_275 {
+  width: auto;
+  height: 24px;
+  position: absolute;
+  left: 59px;
+  top: 0px;
+  display: flex;
+  background-color: rgba(247.03125, 246.78421020507812, 246.78421020507812, 1);
+}
+
+.frame-content-2_275 {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 5px 6px 5px 6px;
+  height: 100%;
+  position: relative;
+}
+
+.Pixso-paragraph-2_276 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: Regular;
+  line-height: 100%;
+  color: rgba(0, 0, 20, 1);
+  white-space: pre-line;
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-group-2_277 {
+  width: 395px;
+  height: 24px;
+  position: absolute;
+  left: 164px;
+  top: 428px;
+}
+
+.Pixso-group-2_278 {
+  width: 57px;
+  height: 24px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.Pixso-rectangle-2_279 {
+  width: 57px;
+  height: 24px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-color: rgba(247.03125, 246.78421020507812, 246.78421020507812, 1);
+}
+
+.Pixso-text-2_280 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: Regular;
+  line-height: 100%;
+  color: rgba(206, 61, 53, 1);
+  width: 45.599998474121094px;
+  height: 14px;
+  position: absolute;
+  left: 4.071428298950195px;
+  top: 5px;
+}
+
+.Pixso-paragraph-2_280_0 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_280_0_1 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(206, 61, 53, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_280_0_2 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 100%;
+  text-decoration: none;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_280_1 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-frame-2_281 {
+  width: auto;
+  height: 24px;
+  position: absolute;
+  left: 59px;
+  top: 0px;
+  display: flex;
+  background-color: rgba(247.03125, 246.78421020507812, 246.78421020507812, 1);
+}
+
+.frame-content-2_281 {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 5px 6px 5px 6px;
+  height: 100%;
+  position: relative;
+}
+
+.Pixso-paragraph-2_282 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: Regular;
+  line-height: 100%;
+  color: rgba(0, 0, 20, 1);
+  white-space: pre-line;
+  width: 324px;
+  height: 14px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-text-2_283 {
+  font-size: 12px;
+  font-family: "Arial-Regular";
+  font-weight: Regular;
+  line-height: 100%;
+  color: rgba(0, 0, 20, 1);
+  width: 541px;
+  height: 129px;
+  position: absolute;
+  left: 38px;
+  top: 667px;
+}
+
+.Pixso-paragraph-2_283_0 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_283_0_1 {
+  font-size: 12px;
+  font-family: "Arial-Bold";
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 100%;
+  text-decoration: none;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_283_0_2 {
+  font-size: 12px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  white-space: pre-line;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_283_1 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_283_2 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_283_2_1 {
+  font-size: 12px;
+  font-family: "Arial-Bold";
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 100%;
+  text-decoration: none;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_283_2_2 {
+  font-size: 12px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_283_3 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_283_4 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_283_4_1 {
+  font-size: 12px;
+  font-family: "Arial-Bold";
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 100%;
+  text-decoration: none;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_283_4_2 {
+  font-size: 12px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_283_5 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+
+  </style>
+</head>
+<body>
+<div class="scroll-container">
+  <div id="0_1" class="Pixso-canvas-0_1">
+    <div id="2_4" class="Pixso-frame-2_4">
+      <div id="2_258" class="stroke-wrapper-2_258">
+        <div class="Pixso-rectangle-2_258"></div>
+        <div class="stroke-2_258"></div>
+      </div>
+      <div id="2_259" class="stroke-wrapper-2_259">
+        <div class="Pixso-rectangle-2_259"></div>
+        <div class="stroke-2_259"></div>
+      </div>
+      <div id="2_260" class="stroke-wrapper-2_260">
+        <div class="Pixso-rectangle-2_260"></div>
+        <div class="stroke-2_260"></div>
+      </div>
+      <div id="2_261" class="stroke-wrapper-2_261">
+        <div class="Pixso-rectangle-2_261"></div>
+        <div class="stroke-2_261"></div>
+      </div>
+      <div id="2_262" class="stroke-wrapper-2_262">
+        <div class="Pixso-rectangle-2_262"></div>
+        <div class="stroke-2_262"></div>
+      </div>
+      <div id="2_263" class="stroke-wrapper-2_263">
+        <div class="Pixso-rectangle-2_263"></div>
+        <div class="stroke-2_263"></div>
+      </div>
+      <p id="2_265" class="Pixso-paragraph-2_265">Ответственность заемщика за ненадлежащее исполнение условий договора, размер неустойки (штрафа, пени) или порядок <br>их определения<br><br></p>
+      <p id="2_266" class="Pixso-paragraph-2_266">Условия предоставления льготного периода кредитования<br><br></p>
+      <div id="2_267" class="Pixso-text-2_267">
+        <p id="2_267_0" class="Pixso-paragraph-2_267_0">
+<span id="2_267_0_1" class="Pixso-span-2_267_0_1">6.4. В рамках режима «Фикс» в Обязательный платеж включается комиссия за предоставление Льготного периода в размере, установленном <br>в Индивидуальных условиях; сумма Основного долга, выставляемая <br>к погашению с 60 (шестидесятого) месяца действия режима «Фикс» <br>в соответствии с п. 17 Индивидуальных условий; проценты, начисленные <br>на сумму Основного долга по операциям Льготного периода в случае невыполнения Клиентом условий предоставления Льготного периода <br>в рамках режима «Фикс», а также (в случае наличия) Сумма превышения лимита кредита, просроченная Сумма  превышения лимита кредита, неустойка, рассчитанная от суммы просроченного Основного долга, неустойка, рассчитанная от суммы просроченных процентов по Основному долгу, просроченная комиссия за предоставление Льготного периода, <br>штраф за неуплату комиссии за предоставление Льготного периода.</span></p>
+        <p id="2_267_1" class="Pixso-paragraph-2_267_1">
+<span id="2_267_1_1" class="Pixso-span-2_267_1_1">6.5. В случае неисполнения Клиентом более четырех раз подряд обязанности по уплате Обязательных платежей действие режима «Фикс» прекращается Банком. Со дня, следующего за днем прекращения действия режима «Фикс», на всю сумму Основного долга из Задолженности Льготного периода на дату прекращения действия режима «Фикс» начисляются проценты за пользование кредитом в рамках режима «Фикс» по ставке, установленной в п. 4.1 Индивидуальных условий для режима «120 дней <br>без %». Дальнейшее исполнение Договора осуществляется на условиях режима «120 дней без %».</span></p>
+        <p id="2_267_2" class="Pixso-paragraph-2_267_2">&nbsp;</p>
+        <p id="2_267_3" class="Pixso-paragraph-2_267_3">&nbsp;</p>
+      </div>
+      <div id="2_268" class="Pixso-text-2_268">
+        <p id="2_268_0" class="Pixso-paragraph-2_268_0">
+<span id="2_268_0_1" class="Pixso-span-2_268_0_1">За несвоевременное погашение Обязательного платежа в рамках режима </span></p>
+        <p id="2_268_1" class="Pixso-paragraph-2_268_1">
+<span id="2_268_1_1" class="Pixso-span-2_268_1_1">«Фикс» Банк вправе взимать неустойку, рассчитываемую в размере </span></p>
+        <p id="2_268_2" class="Pixso-paragraph-2_268_2">&nbsp;</p>
+      </div>
+      <div id="2_269" class="Pixso-text-2_269">
+        <p id="2_269_0" class="Pixso-paragraph-2_269_0">
+<span id="2_269_0_1" class="Pixso-span-2_269_0_1">В случае неуплаты комиссии за предоставление Льготного периода в рамках режима «Фикс» Клиент обязан уплатить Банку штраф в соответствии </span></p>
+        <p id="2_269_1" class="Pixso-paragraph-2_269_1">
+<span id="2_269_1_1" class="Pixso-span-2_269_1_1">с Общими условиями и Тарифами Банка.</span></p>
+        <p id="2_269_2" class="Pixso-paragraph-2_269_2">&nbsp;</p>
+      </div>
+      <div id="2_270" class="Pixso-text-2_270">
+        <p id="2_270_0" class="Pixso-paragraph-2_270_0">
+<span id="2_270_0_1" class="Pixso-span-2_270_0_1">Для совершения операций с использованием карты Банк предоставляет Клиенту Льготный период кредитования на условиях, определенных </span></p>
+        <p id="2_270_1" class="Pixso-paragraph-2_270_1">
+<span id="2_270_1_1" class="Pixso-span-2_270_1_1">в Общих условиях. В рамках режима «Фикс» предоставление Льготного периода осуществляется с взиманием с Клиента комиссии в размере </span><span id="2_270_1_2" class="Pixso-span-2_270_1_2">{id24} </span></p>
+        <p id="2_270_2" class="Pixso-paragraph-2_270_2">
+<span id="2_270_2_1" class="Pixso-span-2_270_2_1">(</span><span id="2_270_2_2" class="Pixso-span-2_270_2_2">{id25}</span><span id="2_270_2_3" class="Pixso-span-2_270_2_3">) рублей за каждую 1000 (тысячу) рублей Основного долга в соответствии с Общими условиями и Тарифами Банка. В рамках режима <br>«Фикс» Льготный период предоставляется сроком до 60 (шестидесяти) Отчетных периодов на условиях, определенных в Общих условиях.</span></p>
+        <p id="2_270_3" class="Pixso-paragraph-2_270_3">&nbsp;</p>
+        <p id="2_270_4" class="Pixso-paragraph-2_270_4">&nbsp;</p>
+      </div>
+      <div id="2_271" class="Pixso-group-2_271">
+        <div id="2_272" class="Pixso-group-2_272">
+          <div id="2_273" class="Pixso-rectangle-2_273"></div>
+          <div id="2_274" class="Pixso-text-2_274">
+            <p id="2_274_0" class="Pixso-paragraph-2_274_0">
+<span id="2_274_0_1" class="Pixso-span-2_274_0_1">{id20}</span><span id="2_274_0_2" class="Pixso-span-2_274_0_2"> </span></p>
+            <p id="2_274_1" class="Pixso-paragraph-2_274_1">&nbsp;</p>
+          </div>
+        </div>
+        <div id="2_275" class="Pixso-frame-2_275">
+          <div class="frame-content-2_275">
+            <p id="2_276" class="Pixso-paragraph-2_276">% годовых от суммы просроченного Основного долга и годовых<br><br></p>
+          </div>
+        </div>
+      </div>
+      <div id="2_277" class="Pixso-group-2_277">
+        <div id="2_278" class="Pixso-group-2_278">
+          <div id="2_279" class="Pixso-rectangle-2_279"></div>
+          <div id="2_280" class="Pixso-text-2_280">
+            <p id="2_280_0" class="Pixso-paragraph-2_280_0">
+<span id="2_280_0_1" class="Pixso-span-2_280_0_1">{id21}</span><span id="2_280_0_2" class="Pixso-span-2_280_0_2"> </span></p>
+            <p id="2_280_1" class="Pixso-paragraph-2_280_1">&nbsp;</p>
+          </div>
+        </div>
+        <div id="2_281" class="Pixso-frame-2_281">
+          <div class="frame-content-2_281">
+            <p id="2_282" class="Pixso-paragraph-2_282">% годовых от суммы просроченных процентов<br><br></p>
+          </div>
+        </div>
+      </div>
+      <div id="2_283" class="Pixso-text-2_283">
+        <p id="2_283_0" class="Pixso-paragraph-2_283_0">
+<span id="2_283_0_1" class="Pixso-span-2_283_0_1">2.</span><span id="2_283_0_2" class="Pixso-span-2_283_0_2"> Подписывая настоящее Предложение (оферту), я подтверждаю, что ознакомлен(-а) <br>и согласен(-на) с размером комиссии за смену режима, установленной в Тарифах Банка, <br>а также списанием Банком данной комиссии за счет кредитных средств в пределах предоставленного мне Лимита кредита.</span></p>
+        <p id="2_283_1" class="Pixso-paragraph-2_283_1">&nbsp;</p>
+        <p id="2_283_2" class="Pixso-paragraph-2_283_2">
+<span id="2_283_2_1" class="Pixso-span-2_283_2_1">3. </span><span id="2_283_2_2" class="Pixso-span-2_283_2_2">Подписывая настоящее Предложение (оферту), я понимаю и соглашаюсь с тем, что:</span></p>
+        <p id="2_283_3" class="Pixso-paragraph-2_283_3">&nbsp;</p>
+        <p id="2_283_4" class="Pixso-paragraph-2_283_4">
+<span id="2_283_4_1" class="Pixso-span-2_283_4_1">3.1. </span><span id="2_283_4_2" class="Pixso-span-2_283_4_2">Принятием (акцептом) Банком моего Предложения (оферты) является установление Банком режима «Фикс», о чем Банк уведомит меня путем направления соответствующего </span></p>
+        <p id="2_283_5" class="Pixso-paragraph-2_283_5">&nbsp;</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+</script>
+
+</body>
+</html>

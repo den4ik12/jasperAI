@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>JasperAI</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            background: #f1f5f9;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .workspace {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px;
+            overflow: auto;
+        }
+
+        #documentFrame {
+            width: 794px;
+            height: 1123px;
+            border: none;
+            background: white;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+            border-radius: 2px;
+            display: block;
+        }
+
+        .workspace.preview-visible {
+            gap: 24px;
+            justify-content: flex-start;
+        }
+
+        .preview-panel {
+            display: none;
+            width: 640px;
+            height: calc(100vh - 80px);
+            min-height: 560px;
+            background: white;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+            border-radius: 6px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .preview-panel.visible {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-header {
+            height: 38px;
+            padding: 0 12px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .preview-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .preview-close {
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            border-radius: 6px;
+            background: #f8fafc;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+            font-size: 16px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .preview-frame {
+            width: 100%;
+            flex: 1;
+            border: none;
+            background: #f8fafc;
+        }
+
+        /* ── Sidebar ── */
+
+        .sidebar {
+            width: 220px;
+            background: white;
+            box-shadow: -2px 0 12px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidebar-top {
+            padding: 14px 14px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .logo-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo {
+            width: 26px;
+            height: 26px;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .logo-title { font-size: 14px; font-weight: 700; color: #1e293b; }
+
+        select {
+            width: 100%;
+            padding: 7px 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #1e293b;
+            background: white;
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+        select:focus { border-color: #3b82f6; }
+
+        .divider { height: 1px; background: #f1f5f9; margin: 10px 0 0; }
+
+        .print-area-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .print-area-row {
+            display: flex;
+            gap: 6px;
+        }
+
+        .print-area-input {
+            flex: 1;
+            min-width: 0;
+            padding: 7px 9px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #1e293b;
+            outline: none;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+        }
+
+        .print-area-input:focus { border-color: #3b82f6; }
+
+        .print-area-btn {
+            width: 74px;
+            padding: 0;
+            flex-shrink: 0;
+            background: #f8fafc;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+            font-size: 12px;
+        }
+
+        .print-area-meta {
+            min-height: 13px;
+            font-size: 10px;
+            color: #94a3b8;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* ── Element editor ── */
+
+        .element-editor {
+            flex: 1;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+        }
+
+        .element-summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            min-height: 24px;
+        }
+
+        .element-kind-badge {
+            flex-shrink: 0;
+            padding: 3px 7px;
+            border-radius: 5px;
+            font-size: 10px;
+            font-weight: 700;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            border: 1px solid transparent;
+        }
+
+        .element-kind-badge.dynamic {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+            color: #2563eb;
+        }
+
+        .element-kind-badge.static {
+            background: #fffbeb;
+            border-color: #fde68a;
+            color: #d97706;
+        }
+
+        .element-kind-badge.visual {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            color: #475569;
+        }
+
+        .editor-placeholder {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 14px;
+        }
+
+        .editor-placeholder-text {
+            font-size: 12px;
+            color: #cbd5e1;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .legend {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-self: stretch;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .field-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #94a3b8;
+        }
+
+        .type-toggle {
+            display: flex;
+            gap: 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .type-btn {
+            flex: 1;
+            padding: 7px 6px;
+            border: none;
+            background: white;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            color: #94a3b8;
+            transition: background 0.12s, color 0.12s;
+            width: auto;
+        }
+        .type-btn:first-child { border-right: 1px solid #e2e8f0; }
+        .type-btn.active-dynamic { background: #eff6ff; color: #3b82f6; font-weight: 700; }
+        .type-btn.active-static  { background: #fffbeb; color: #d97706; font-weight: 700; }
+        .type-btn:hover:not(.active-dynamic):not(.active-static) { background: #f8fafc; color: #475569; }
+
+        .content-input {
+            width: 100%;
+            padding: 7px 9px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #1e293b;
+            outline: none;
+            font-family: inherit;
+            resize: none;
+            line-height: 1.5;
+        }
+        .content-input.mono {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: #3b82f6;
+        }
+        .content-input:focus { border-color: #3b82f6; }
+
+        .frame-editor {
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 9px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: #f8fafc;
+        }
+
+        .frame-status {
+            font-size: 11px;
+            color: #475569;
+            line-height: 1.4;
+        }
+
+        .frame-select {
+            width: 100%;
+            padding: 7px 9px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            background: white;
+            color: #1e293b;
+            font-size: 12px;
+            outline: none;
+        }
+
+        .elem-id {
+            font-size: 10px;
+            color: #cbd5e1;
+            font-family: monospace;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* ── Bottom ── */
+
+        .sidebar-bottom {
+            padding: 10px 14px 14px;
+            border-top: 1px solid #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .status {
+            font-size: 11px;
+            color: #94a3b8;
+            min-height: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: background 0.15s, opacity 0.15s;
+        }
+        button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .btn-extract  { background: #f1f5f9; color: #475569; }
+        .btn-extract:hover:not(:disabled)  { background: #e2e8f0; }
+        .btn-generate { background: #3b82f6; color: white; }
+        .btn-generate:hover:not(:disabled) { background: #2563eb; }
+        .btn-preview { background: #eef2ff; color: #4f46e5; border: 1px solid #c7d2fe; }
+        .btn-preview:hover:not(:disabled) { background: #e0e7ff; }
+        .btn-testdata { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+        .btn-testdata:hover:not(:disabled) { background: #dcfce7; }
+
+        .spinner {
+            width: 10px; height: 10px;
+            border: 2px solid #93c5fd;
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            flex-shrink: 0;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── Demo hints ── */
+
+        .demo-steps {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            padding: 10px 14px 0;
+        }
+
+        .demo-step {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            color: #cbd5e1;
+            transition: color 0.3s;
+            white-space: nowrap;
+        }
+
+        .demo-step.active { color: #3b82f6; }
+        .demo-step.done   { color: #22c55e; }
+
+        .demo-step-num {
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 9px; font-weight: 700;
+            transition: background 0.3s, color 0.3s;
+            flex-shrink: 0;
+            color: #94a3b8;
+        }
+
+        .demo-step.active .demo-step-num {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .demo-step.done .demo-step-num {
+            background: #22c55e;
+            color: white;
+        }
+
+        .demo-step-arrow {
+            color: #e2e8f0;
+            font-size: 10px;
+            margin: 0 3px;
+        }
+
+        @keyframes pulse-ring {
+            0%   { box-shadow: 0 0 0 0 rgba(59,130,246,0.5); }
+            70%  { box-shadow: 0 0 0 6px rgba(59,130,246,0); }
+            100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); }
+        }
+
+        @keyframes pulse-ring-green {
+            0%   { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+            70%  { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+            100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+        }
+
+        .pulse-blue { animation: pulse-ring 1.6s ease-out infinite; }
+        .pulse-green { animation: pulse-ring-green 1.6s ease-out infinite; }
+
+        .hint-tooltip {
+            position: relative;
+        }
+
+        .hint-tooltip::after {
+            content: attr(data-hint);
+            position: absolute;
+            right: calc(100% + 10px);
+            top: 50%;
+            transform: translateY(-50%);
+            background: #1e293b;
+            color: #f8fafc;
+            font-size: 11px;
+            font-weight: 500;
+            padding: 6px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 100;
+            max-width: 180px;
+            white-space: normal;
+            text-align: right;
+            line-height: 1.4;
+        }
+
+        .hint-tooltip::before {
+            content: '';
+            position: absolute;
+            right: calc(100% + 4px);
+            top: 50%;
+            transform: translateY(-50%);
+            border: 5px solid transparent;
+            border-left-color: #1e293b;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 100;
+        }
+
+        .hint-tooltip:hover::after,
+        .hint-tooltip:hover::before { opacity: 1; }
+
+        .demo-hint-card {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateX(-110px);
+            background: #1e293b;
+            color: #f1f5f9;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 8px 14px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s, transform 0.4s;
+            z-index: 9999;
+        }
+
+        .demo-hint-card.visible {
+            opacity: 1;
+        }
+
+        .demo-hint-arrow {
+            font-size: 14px;
+            animation: bounce-right 1s ease-in-out infinite;
+        }
+
+        @keyframes bounce-right {
+            0%, 100% { transform: translateX(0); }
+            50%       { transform: translateX(4px); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="workspace">
+    <iframe id="documentFrame" src="archive/source/c2c.html"></iframe>
+    <div class="preview-panel" id="previewPanel">
+        <div class="preview-header">
+            <div class="preview-title">Предпросмотр PDF</div>
+            <button class="preview-close" onclick="closePreview()" title="Закрыть">×</button>
+        </div>
+        <iframe class="preview-frame" id="resultPreview"></iframe>
+    </div>
+</div>
+
+<div class="demo-hint-card" id="demoHintCard">
+    <span class="demo-hint-arrow">→</span>
+    <span id="demoHintText"></span>
+</div>
+
+<div class="sidebar">
+    <div class="sidebar-top">
+        <div class="logo-row">
+            <div class="logo">J</div>
+            <div class="logo-title">JasperAI</div>
+        </div>
+
+        <div class="demo-steps" id="demoSteps">
+            <div class="demo-step active" id="dstep1">
+                <div class="demo-step-num">1</div>
+                <span>Макет</span>
+            </div>
+            <div class="demo-step-arrow">›</div>
+            <div class="demo-step" id="dstep2">
+                <div class="demo-step-num">2</div>
+                <span>Анализ</span>
+            </div>
+            <div class="demo-step-arrow">›</div>
+            <div class="demo-step" id="dstep3">
+                <div class="demo-step-num">3</div>
+                <span>Правка</span>
+            </div>
+            <div class="demo-step-arrow">›</div>
+            <div class="demo-step" id="dstep4">
+                <div class="demo-step-num">4</div>
+                <span>Отчёт</span>
+            </div>
+        </div>
+        <select id="templateSelect" onchange="changeTemplate(this.value)">
+            <option value="archive/source/c2c.html" selected>c2c</option>
+            <option value="archive/source/cript.html">cript</option>
+            <option value="archive/source/credit-3.html">credit-3</option>
+            <option value="archive/source/credit-4.html">credit-4</option>
+            <option value="archive/source/reclamation.html">reclamation</option>
+        </select>
+        <select id="formatSelect" title="Целевой формат отчёта">
+            <option value="SOURCE">Исходный</option>
+            <option value="A4" selected>A4</option>
+            <option value="A3">A3</option>
+            <option value="A5">A5</option>
+            <option value="LETTER">Letter</option>
+            <option value="LEGAL">Legal</option>
+        </select>
+        <div class="print-area-panel">
+            <div class="field-label">Область печати</div>
+            <div class="print-area-row">
+                <input id="printAreaSelector" class="print-area-input"
+                       value=""
+                       data-selector='[class*="Pixso-frame"]' readonly
+                       oninput="updatePrintAreaInfo()">
+                <button class="print-area-btn hint-tooltip" id="printAreaPickBtn" onclick="startPrintAreaSelection()"
+                        data-hint="Кликните по нужному блоку на макете" title="Выбрать блок">Выбрать</button>
+            </div>
+            <div class="print-area-meta" id="printAreaMeta"></div>
+        </div>
+        <div class="divider"></div>
+    </div>
+
+    <!-- Placeholder shown when nothing selected -->
+    <div class="editor-placeholder" id="editorPlaceholder">
+        <div class="legend" id="legend" style="display:none">
+            <div class="legend-item">
+                <div class="legend-dot" style="background:#3b82f6"></div>
+                Поле данных
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot" style="background:#f59e0b"></div>
+                Статичный текст
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot" style="background:#64748b"></div>
+                Визуальный элемент
+            </div>
+        </div>
+        <div class="editor-placeholder-text" id="placeholderText">
+            Нажмите «Извлечь»,<br>затем кликните на элемент
+        </div>
+    </div>
+
+    <!-- Element editor shown when element is selected -->
+    <div class="element-editor" id="elementEditor" style="display:none">
+        <div class="element-summary">
+            <div class="elem-id" id="elemId"></div>
+            <div class="element-kind-badge visual" id="elementKindBadge"></div>
+        </div>
+        <div id="typeEditorBlock">
+            <div class="field-label" style="margin-bottom:6px">Тип</div>
+            <div class="type-toggle">
+                <button class="type-btn" id="btnDynamic" onclick="setType('TEXT_FIELD')">Поле данных</button>
+                <button class="type-btn" id="btnStatic"  onclick="setType('STATIC_TEXT')">Статичный текст</button>
+            </div>
+        </div>
+        <div id="contentEditorBlock">
+            <div class="field-label" style="margin-bottom:6px" id="contentLabel">Значение</div>
+            <input class="content-input" id="contentInput" type="text" oninput="updateContent(this.value)">
+        </div>
+        <div>
+            <div class="field-label" style="margin-bottom:6px">Фрейм</div>
+            <div class="frame-editor">
+                <div class="frame-status" id="frameStatus"></div>
+                <select class="frame-select" id="frameSelect" onchange="setGroupId(this.value)"></select>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-bottom">
+        <div class="status" id="status"></div>
+        <button class="btn-extract hint-tooltip"  id="extractBtn"  onclick="doExtract()"
+            data-hint="ИИ изучит макет и найдёт все текстовые поля автоматически">↺ Анализ</button>
+        <button class="btn-generate hint-tooltip" id="generateBtn" onclick="doGenerate()" disabled
+            data-hint="Создать готовый шаблон отчёта на основе разметки">▶ Создать отчёт</button>
+        <button class="btn-preview hint-tooltip" id="previewBtn" onclick="doPreview()" disabled
+            data-hint="Сгенерировать PDF и показать результат без скачивания JRXML">◉ Показать результат</button>
+        <button class="btn-testdata hint-tooltip" id="testDataBtn" onclick="doTestData()"
+            data-hint="Сгенерировать тестовые данные и открыть предпросмотр">⊞ Тестовые данные</button>
+    </div>
+</div>
+
+
+<script>
+    const API = '/api/report';
+    const COLOR_DYNAMIC = '#3b82f6';
+    const COLOR_STATIC  = '#f59e0b';
+    const COLOR_VISUAL  = '#64748b';
+    const COLOR_GROUP   = '#16a34a';
+
+    let llmData = null;
+    let layoutData = null;
+    let busy = false;
+    let selectedIndex = -1;
+    let lastJrxml = null;
+    let lastPreviewUrl = null;
+    let selectingPrintArea = false;
+
+    // ── Demo hints ────────────────────────────────────────────────────────
+
+    function setDemoState(state) {
+        const steps = ['dstep1','dstep2','dstep3','dstep4'];
+        const stateMap = { initial: 0, extracting: 1, extracted: 1, selected: 2, generating: 3 };
+        const activeIdx = stateMap[state] ?? 0;
+
+        steps.forEach((id, i) => {
+            const el = document.getElementById(id);
+            el.classList.remove('active','done');
+            if (i < activeIdx)      el.classList.add('done');
+            else if (i === activeIdx) el.classList.add('active');
+        });
+
+        document.getElementById('extractBtn').classList.remove('pulse-blue');
+        document.getElementById('generateBtn').classList.remove('pulse-green');
+
+        const hintCard = document.getElementById('demoHintCard');
+        const hintText = document.getElementById('demoHintText');
+
+        const hints = {
+            initial:    { text: 'Нажмите «Анализ» — ИИ найдёт все поля', pulse: 'extract' },
+            extracting: { text: 'Идёт анализ макета...', pulse: null },
+            extracted:  { text: 'Не устраивает вариант ИИ? Кликните на элемент — отредактируйте вручную', pulse: null },
+            selected:   { text: 'Проверьте поля и нажмите «Создать отчёт»', pulse: 'generate' },
+            generating: null,
+        };
+
+        const h = hints[state];
+        if (h) {
+            hintText.textContent = h.text;
+            hintCard.classList.add('visible');
+            if (h.pulse === 'extract')  document.getElementById('extractBtn').classList.add('pulse-blue');
+            if (h.pulse === 'generate') document.getElementById('generateBtn').classList.add('pulse-green');
+        } else {
+            hintCard.classList.remove('visible');
+        }
+    }
+
+    let _hintHideTimer = null;
+    function hideDemoHint(delay = 3000) {
+        clearTimeout(_hintHideTimer);
+        _hintHideTimer = setTimeout(() => {
+            document.getElementById('demoHintCard').classList.remove('visible');
+        }, delay);
+    }
+
+    // ── Template ──────────────────────────────────────────────────────────
+
+    function changeTemplate(src) {
+        const frame = document.getElementById('documentFrame');
+        clearPrintAreaPicker();
+        frame.src = src;
+        frame.onload = updatePrintAreaInfo;
+        llmData = null;
+        layoutData = null;
+        selectedIndex = -1;
+        lastJrxml = null;
+        closePreview();
+        setStatus('');
+        document.getElementById('generateBtn').disabled = true;
+        document.getElementById('previewBtn').disabled = true;
+        showPlaceholder('Нажмите «Анализ»,\nзатем кликните на элемент');
+        document.getElementById('legend').style.display = 'none';
+        setDemoState('initial');
+    }
+
+    function cssSelectorForElement(element) {
+        if (element.id) {
+            return `#${CSS.escape(element.id)}`;
+        }
+        if (element.classList?.length) {
+            return `.${CSS.escape(element.classList[0])}`;
+        }
+        return element.tagName.toLowerCase();
+    }
+
+    function getFrameDocument() {
+        return document.getElementById('documentFrame').contentWindow.document;
+    }
+
+    function getScrollOffsets(doc) {
+        return {
+            left: doc.documentElement.scrollLeft || doc.body.scrollLeft || 0,
+            top: doc.documentElement.scrollTop || doc.body.scrollTop || 0
+        };
+    }
+
+    function getPrintAreaSelector() {
+        const input = document.getElementById('printAreaSelector');
+        return input.dataset.selector || '[class*="Pixso-frame"]';
+    }
+
+    function setPrintAreaSelector(selector) {
+        const input = document.getElementById('printAreaSelector');
+        input.dataset.selector = selector || '[class*="Pixso-frame"]';
+        input.value = '';
+    }
+
+    function findPrintAreaElement(doc) {
+        const selector = getPrintAreaSelector();
+        let element;
+        try {
+            element = doc.querySelector(selector);
+        } catch (e) {
+            throw new Error('Некорректный селектор области печати');
+        }
+        return element || doc.querySelector('[class*="Pixso-frame"]') || doc.body;
+    }
+
+    function getPrintArea() {
+        const doc = getFrameDocument();
+        const element = findPrintAreaElement(doc);
+        const r = element.getBoundingClientRect();
+        const scroll = getScrollOffsets(doc);
+        if (!r.width || !r.height) {
+            throw new Error('Не удалось определить размер области печати');
+        }
+        return {
+            selector: getPrintAreaSelector(),
+            x: Math.round(r.left + scroll.left),
+            y: Math.round(r.top + scroll.top),
+            width: Math.round(r.width),
+            height: Math.round(r.height)
+        };
+    }
+
+    function updatePrintAreaInfo() {
+        const meta = document.getElementById('printAreaMeta');
+        try {
+            const area = getPrintArea();
+            meta.textContent = `${area.width} x ${area.height}`;
+            renderPrintAreaOutline(area);
+        } catch (e) {
+            meta.textContent = e.message;
+        }
+    }
+
+    function getPrintAreaCandidates(doc) {
+        return Array.from(doc.querySelectorAll('[class*="Pixso-frame"], [class*="Pixso-canvas"], div[id]'))
+            .map(el => ({ el, rect: el.getBoundingClientRect() }))
+            .filter(item => item.rect.width >= 20 && item.rect.height >= 20)
+            .sort((a, b) => (b.rect.width * b.rect.height) - (a.rect.width * a.rect.height));
+    }
+
+    function detectPrintAreaSelector() {
+        const doc = getFrameDocument();
+        const best = getPrintAreaCandidates(doc)[0];
+        if (best?.el) {
+            setPrintAreaSelector(cssSelectorForElement(best.el));
+        }
+        updatePrintAreaInfo();
+    }
+
+    function clearPrintAreaPicker() {
+        let doc;
+        try {
+            doc = getFrameDocument();
+        } catch (e) {
+            return;
+        }
+        doc.getElementById('__jpa_picker__')?.remove();
+        doc.getElementById('__jpa_picker_style__')?.remove();
+        selectingPrintArea = false;
+        const btn = document.getElementById('printAreaPickBtn');
+        if (btn) btn.textContent = 'Выбрать';
+    }
+
+    function renderPrintAreaOutline(area) {
+        if (selectingPrintArea) return;
+        const doc = getFrameDocument();
+        doc.getElementById('__jpa_outline__')?.remove();
+
+        const outline = doc.createElement('div');
+        outline.id = '__jpa_outline__';
+        outline.style.cssText = `
+            position:absolute;
+            left:${area.x}px;
+            top:${area.y}px;
+            width:${area.width}px;
+            height:${area.height}px;
+            border:2px dashed rgba(34,197,94,0.9);
+            box-shadow:0 0 0 99999px rgba(15,23,42,0.06);
+            pointer-events:none;
+            z-index:9997;
+            box-sizing:border-box;
+        `;
+        doc.body.appendChild(outline);
+    }
+
+    function startPrintAreaSelection() {
+        const doc = getFrameDocument();
+        clearPrintAreaPicker();
+        selectingPrintArea = true;
+        document.getElementById('printAreaPickBtn').textContent = 'Клик...';
+        setStatus('Кликните по целевому блоку на макете');
+
+        doc.getElementById('__jpa_outline__')?.remove();
+
+        const style = doc.createElement('style');
+        style.id = '__jpa_picker_style__';
+        style.textContent = `
+            .__jpa_pick {
+                position:absolute;
+                border:1.5px solid rgba(59,130,246,0.55);
+                background:rgba(59,130,246,0.08);
+                cursor:crosshair;
+                z-index:10000;
+                box-sizing:border-box;
+            }
+            .__jpa_pick:hover {
+                border-color:rgba(59,130,246,1);
+                background:rgba(59,130,246,0.18);
+            }
+            .__jpa_pick_label {
+                position:absolute;
+                left:0;
+                top:0;
+                transform:translateY(-100%);
+                background:#1e293b;
+                color:#f8fafc;
+                font:10px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+                padding:2px 5px;
+                white-space:nowrap;
+                pointer-events:none;
+            }
+        `;
+        doc.head.appendChild(style);
+
+        const container = doc.createElement('div');
+        container.id = '__jpa_picker__';
+        container.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;z-index:9999;';
+        doc.body.appendChild(container);
+
+        const scroll = getScrollOffsets(doc);
+        getPrintAreaCandidates(doc).forEach(({ el, rect }) => {
+            const item = doc.createElement('div');
+            item.className = '__jpa_pick';
+            item.style.cssText = `
+                left:${Math.round(rect.left + scroll.left)}px;
+                top:${Math.round(rect.top + scroll.top)}px;
+                width:${Math.round(rect.width)}px;
+                height:${Math.round(rect.height)}px;
+            `;
+            item.title = cssSelectorForElement(el);
+            const label = doc.createElement('div');
+            label.className = '__jpa_pick_label';
+            label.textContent = `${Math.round(rect.width)} x ${Math.round(rect.height)}`;
+            item.appendChild(label);
+            item.addEventListener('click', event => {
+                event.preventDefault();
+                event.stopPropagation();
+                setPrintAreaSelector(cssSelectorForElement(el));
+                clearPrintAreaPicker();
+                updatePrintAreaInfo();
+                setStatus('');
+            });
+            container.appendChild(item);
+        });
+    }
+
+    // ── Status / UI ───────────────────────────────────────────────────────
+
+    function setStatus(text, loading) {
+        const el = document.getElementById('status');
+        el.innerHTML = loading ? `<div class="spinner"></div>${text}` : text;
+    }
+
+    function setBusy(val) {
+        busy = val;
+        document.getElementById('extractBtn').disabled = val;
+        document.getElementById('generateBtn').disabled = val || !llmData;
+        document.getElementById('previewBtn').disabled = val || !llmData;
+    }
+
+    function showPlaceholder(text) {
+        document.getElementById('editorPlaceholder').style.display = 'flex';
+        document.getElementById('elementEditor').style.display = 'none';
+        document.getElementById('placeholderText').innerHTML = text.replace('\n', '<br>');
+    }
+
+    function showEditor(index) {
+        selectedIndex = index;
+        setDemoState('selected');
+        const el = llmData.elements[index];
+        const isDynamic = el.type === 'TEXT_FIELD';
+        const isText = el.type === 'TEXT_FIELD' || el.type === 'STATIC_TEXT';
+
+        document.getElementById('editorPlaceholder').style.display = 'none';
+        document.getElementById('elementEditor').style.display = 'flex';
+        document.getElementById('typeEditorBlock').style.display = isText ? 'block' : 'none';
+        document.getElementById('contentEditorBlock').style.display = isText ? 'block' : 'none';
+
+        if (isText) {
+            document.getElementById('btnDynamic').className = 'type-btn' + (isDynamic  ? ' active-dynamic' : '');
+            document.getElementById('btnStatic').className  = 'type-btn' + (!isDynamic ? ' active-static'  : '');
+
+            const input = document.getElementById('contentInput');
+            input.value = el.content || '';
+            input.className = 'content-input' + (isDynamic ? ' mono' : '');
+            input.placeholder = isDynamic ? 'fieldName' : 'Текст элемента';
+
+            document.getElementById('contentLabel').textContent = isDynamic ? 'Имя поля' : 'Текст';
+        }
+        document.getElementById('elemId').textContent = el.elementId ? 'id: ' + el.elementId : '';
+        renderElementKindBadge(el.type);
+        renderGroupEditor();
+    }
+
+    // ── Extract ───────────────────────────────────────────────────────────
+
+    function scanLayout() {
+        const doc = getFrameDocument();
+        const scroll = getScrollOffsets(doc);
+        return Array.from(doc.querySelectorAll(
+            '[class*="Pixso-paragraph"], [class*="Pixso-rectangle"], [class*="Pixso-vector"], [class*="stroke-wrapper"]'
+        )).flatMap(el => {
+            const r = el.getBoundingClientRect();
+            return r.width && r.height
+                ? [{
+                    id: el.id || 'no-id',
+                    x: Math.round(r.left + scroll.left),
+                    y: Math.round(r.top + scroll.top),
+                    width: Math.round(r.width),
+                    height: Math.round(r.height)
+                }]
+                : [];
+        });
+    }
+
+    function getMainContainerSize() {
+        const area = getPrintArea();
+        return { pageWidth: area.width, pageHeight: area.height, printArea: area };
+    }
+
+    async function doExtract() {
+        if (busy) return;
+        setBusy(true);
+        clearOverlays();
+        selectedIndex = -1;
+        showPlaceholder('Анализ...');
+        setStatus('Анализ ИИ...', true);
+        setDemoState('extracting');
+
+        try {
+            layoutData = scanLayout();
+            const html = getFrameDocument().documentElement.outerHTML;
+
+            const res = await fetch(API + '/extract', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ html })
+            });
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            llmData = await res.json();
+
+            applyOverlays();
+            showPlaceholder('Кликните на элемент\nдля редактирования');
+            document.getElementById('legend').style.display = 'flex';
+            setStatus('');
+            setDemoState('extracted');
+            hideDemoHint(10000);
+        } catch (e) {
+            setStatus('Ошибка: ' + e.message);
+            showPlaceholder('Ошибка извлечения');
+            console.error(e);
+        } finally {
+            setBusy(false);
+        }
+    }
+
+    // ── Overlays ──────────────────────────────────────────────────────────
+
+    function clearOverlays() {
+        const doc = getFrameDocument();
+        doc.getElementById('__jov__')?.remove();
+        doc.getElementById('__jst__')?.remove();
+    }
+
+    function applyOverlays() {
+        const doc = getFrameDocument();
+        clearOverlays();
+        doc.body.style.position = 'relative';
+
+        const style = doc.createElement('style');
+        style.id = '__jst__';
+        style.textContent = `
+            .__jov {
+                position: absolute; box-sizing: border-box;
+                pointer-events: all; z-index: 9999;
+                cursor: pointer; transition: border-color 0.1s;
+            }
+            .__jov_group {
+                position:absolute; left:0; top:0; transform:translateY(-100%);
+                background:${COLOR_GROUP}; color:white;
+                font:10px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+                padding:1px 5px; border-radius:4px 4px 0 0;
+                white-space:nowrap; pointer-events:none;
+            }
+        `;
+        doc.head.appendChild(style);
+
+        const container = doc.createElement('div');
+        container.id = '__jov__';
+        container.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;';
+        doc.body.appendChild(container);
+
+        const scrollTop  = doc.documentElement.scrollTop  || doc.body.scrollTop  || 0;
+        const scrollLeft = doc.documentElement.scrollLeft || doc.body.scrollLeft || 0;
+
+        llmData.elements.forEach((el, index) => {
+            if (!el.elementId) return;
+            const domEl = doc.getElementById(el.elementId);
+            if (!domEl) return;
+
+            const rect = domEl.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
+
+            const groupId = normalizeGroupId(el.groupId);
+            const isSelected = index === selectedIndex;
+            const color = getOverlayColor(el.type);
+            const zIndex = getOverlayZIndex(el.type, isSelected);
+
+            const ov = doc.createElement('div');
+            ov.className = '__jov';
+            ov.dataset.index = index;
+            ov.style.cssText = `
+                left: ${rect.left + scrollLeft}px;
+                top:  ${rect.top  + scrollTop}px;
+                width: ${rect.width}px;
+                height: ${rect.height}px;
+                z-index: ${zIndex};
+                border: ${isSelected ? '2px' : '1.5px'} solid ${isSelected ? color : color + '88'};
+                box-shadow: ${overlayShadow(isSelected, color, groupId)};
+            `;
+            if (groupId) {
+                const badge = doc.createElement('div');
+                badge.className = '__jov_group';
+                badge.textContent = 'F' + getGroupNumber(groupId);
+                ov.appendChild(badge);
+            }
+            ov.addEventListener('click', event => {
+                event.preventDefault();
+                event.stopPropagation();
+                selectedIndex = index;
+                showEditor(index);
+                applyOverlays();
+            });
+            container.appendChild(ov);
+        });
+    }
+
+    // ── Sidebar editor actions ─────────────────────────────────────────────
+
+    function setType(type) {
+        if (selectedIndex < 0 || !llmData) return;
+        llmData.elements[selectedIndex].type = type;
+        showEditor(selectedIndex);
+        applyOverlays();
+    }
+
+    function updateContent(value) {
+        if (selectedIndex < 0 || !llmData) return;
+        llmData.elements[selectedIndex].content = value;
+    }
+
+    function getOverlayColor(type) {
+        if (type === 'TEXT_FIELD') return COLOR_DYNAMIC;
+        if (type === 'STATIC_TEXT') return COLOR_STATIC;
+        return COLOR_VISUAL;
+    }
+
+    function getElementKindLabel(type) {
+        if (type === 'TEXT_FIELD') return 'Поле';
+        if (type === 'STATIC_TEXT') return 'Текст';
+        if (type === 'RECTANGLE') return 'Прямоугольник';
+        if (type === 'IMAGE') return 'Изображение';
+        return type || 'Элемент';
+    }
+
+    function getElementKindClass(type) {
+        if (type === 'TEXT_FIELD') return 'dynamic';
+        if (type === 'STATIC_TEXT') return 'static';
+        return 'visual';
+    }
+
+    function renderElementKindBadge(type) {
+        const badge = document.getElementById('elementKindBadge');
+        badge.textContent = getElementKindLabel(type);
+        badge.className = 'element-kind-badge ' + getElementKindClass(type);
+    }
+
+    function getOverlayZIndex(type, isSelected) {
+        if (isSelected) return 10001;
+        if (type === 'TEXT_FIELD' || type === 'STATIC_TEXT') return 10000;
+        return 9999;
+    }
+
+    function normalizeGroupId(value) {
+        return typeof value === 'string' && value.trim() ? value.trim() : '';
+    }
+
+    function getGroups() {
+        const groups = new Map();
+        if (!llmData?.elements) return groups;
+        llmData.elements.forEach((el, index) => {
+            const groupId = normalizeGroupId(el.groupId);
+            if (!groupId) return;
+            if (!groups.has(groupId)) groups.set(groupId, []);
+            groups.get(groupId).push({ el, index });
+        });
+        return new Map([...groups.entries()].sort(([a], [b]) => a.localeCompare(b)));
+    }
+
+    function getGroupNumber(groupId) {
+        return [...getGroups().keys()].indexOf(groupId) + 1;
+    }
+
+    function overlayShadow(isSelected, color, groupId) {
+        const parts = [];
+        if (isSelected) parts.push(`0 0 0 3px ${color}22`);
+        if (groupId) parts.push(`0 0 0 ${isSelected ? 5 : 3}px ${COLOR_GROUP}33`);
+        return parts.length ? parts.join(', ') : 'none';
+    }
+
+    function groupLabel(groupId, members) {
+        const first = members[0]?.el;
+        const title = first?.content || first?.elementId || groupId;
+        return `F${getGroupNumber(groupId)} · ${title} · ${members.length}`;
+    }
+
+    function renderGroupEditor() {
+        if (selectedIndex < 0 || !llmData) return;
+
+        const el = llmData.elements[selectedIndex];
+        const groupId = normalizeGroupId(el.groupId);
+        const groups = getGroups();
+        const select = document.getElementById('frameSelect');
+
+        select.innerHTML = '';
+        select.appendChild(new Option('Без фрейма', ''));
+        select.appendChild(new Option('Новый фрейм', '__new__'));
+        groups.forEach((members, id) => {
+            select.appendChild(new Option(groupLabel(id, members), id));
+        });
+        if (groupId && !groups.has(groupId)) {
+            select.appendChild(new Option(groupId, groupId));
+        }
+        select.value = groupId;
+
+        const membersCount = groupId ? (groups.get(groupId)?.length || 1) : 0;
+        document.getElementById('frameStatus').textContent = groupId
+            ? `Элемент входит во фрейм F${getGroupNumber(groupId)}. Элементов: ${membersCount}.`
+            : 'Элемент не входит во фрейм.';
+    }
+
+    function setGroupId(groupId) {
+        if (selectedIndex < 0 || !llmData) return;
+        const el = llmData.elements[selectedIndex];
+        const normalized = groupId === '__new__' ? normalizeGroupId(el.elementId) : normalizeGroupId(groupId);
+        if (normalized) el.groupId = normalized;
+        else delete el.groupId;
+        renderGroupEditor();
+        applyOverlays();
+    }
+
+    // ── Test Data ─────────────────────────────────────────────────────────
+
+    function doTestData() {
+        if (lastJrxml) localStorage.setItem('jasperai_jrxml', lastJrxml);
+        window.open('test-data.html', '_blank');
+    }
+
+    // ── Preview ───────────────────────────────────────────────────────────
+
+    function closePreview() {
+        if (lastPreviewUrl) {
+            URL.revokeObjectURL(lastPreviewUrl);
+            lastPreviewUrl = null;
+        }
+        document.getElementById('resultPreview').removeAttribute('src');
+        document.getElementById('previewPanel').classList.remove('visible');
+        document.querySelector('.workspace').classList.remove('preview-visible');
+    }
+
+    async function doPreview() {
+        if (busy || !llmData) return;
+        setBusy(true);
+        setStatus('Готовим PDF...', true);
+
+        try {
+            const html = getFrameDocument().documentElement.outerHTML;
+            const res = await fetch(API + '/preview/pdf', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    html,
+                    coordinates: layoutData,
+                    llmTemplateData: llmData,
+                    targetFormat: document.getElementById('formatSelect').value,
+                    ...getMainContainerSize()
+                })
+            });
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+
+            if (lastPreviewUrl) URL.revokeObjectURL(lastPreviewUrl);
+            const blob = await res.blob();
+            lastPreviewUrl = URL.createObjectURL(blob);
+
+            document.getElementById('resultPreview').src = lastPreviewUrl;
+            document.getElementById('previewPanel').classList.add('visible');
+            document.querySelector('.workspace').classList.add('preview-visible');
+            setStatus('Предпросмотр готов');
+        } catch (e) {
+            setStatus('Ошибка предпросмотра: ' + e.message);
+            console.error(e);
+        } finally {
+            setBusy(false);
+        }
+    }
+
+    // ── Generate ──────────────────────────────────────────────────────────
+
+    async function doGenerate() {
+        if (busy || !llmData) return;
+        setBusy(true);
+        setStatus('Генерация...', true);
+        setDemoState('generating');
+
+        try {
+            const html = getFrameDocument().documentElement.outerHTML;
+            const res = await fetch(API + '/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    html,
+                    coordinates: layoutData,
+                    llmTemplateData: llmData,
+                    targetFormat: document.getElementById('formatSelect').value,
+                    ...getMainContainerSize()
+                })
+            });
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const jrxml = await res.text();
+            lastJrxml = jrxml;
+
+            const blob = new Blob([jrxml], { type: 'application/xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = 'report.jrxml'; a.click();
+            URL.revokeObjectURL(url);
+            setStatus('Файл скачан');
+        } catch (e) {
+            setStatus('Ошибка: ' + e.message);
+            console.error(e);
+        } finally {
+            setBusy(false);
+        }
+    }
+
+    document.getElementById('documentFrame').onload = updatePrintAreaInfo;
+    setTimeout(updatePrintAreaInfo, 0);
+    setDemoState('initial');
+</script>
+</body>
+</html>

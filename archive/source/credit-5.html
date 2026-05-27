@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixso HTML</title>
+  <link rel="stylesheet" href="css/font.css">
+  <script src="js/animation.js"></script>
+  <style>
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ol,ul,menu {
+  padding-inline-start: 0;
+  list-style: none;
+}
+
+ol li::marker, ul li::before {
+  letter-spacing: 0;
+}
+
+.scroll-container > div {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.container > div {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.Pixso-canvas-0_1 > div {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body { 
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background-color: white;
+}
+    
+span {
+  word-break: break-word;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.scroll-container {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.Pixso-canvas-0_1 {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.Pixso-frame-2_5 {
+  width: 595px;
+  height: 842px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.Pixso-text-2_326 {
+  font-size: 12px;
+  font-family: "Arial-Regular";
+  font-weight: Regular;
+  line-height: 100%;
+  color: rgba(0, 0, 20, 1);
+  width: 541px;
+  height: 300px;
+  position: absolute;
+  left: 38px;
+  top: 28px;
+}
+
+.Pixso-paragraph-2_326_0 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_326_0_1 {
+  font-size: 12px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_326_1 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_326_1_1 {
+  font-size: 12px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_326_2 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_326_3 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_326_3_1 {
+  font-size: 12px;
+  font-family: "Arial-Bold";
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 100%;
+  text-decoration: none;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_326_3_2 {
+  font-size: 12px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_326_4 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_326_4_1 {
+  font-size: 12px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_326_5 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_326_6 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_326_6_1 {
+  font-size: 12px;
+  font-family: "Arial-Bold";
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 100%;
+  text-decoration: none;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_326_6_2 {
+  font-size: 12px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  white-space: pre-line;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_326_7 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_326_8 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_326_8_1 {
+  font-size: 12px;
+  font-family: "Arial-Bold";
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 100%;
+  text-decoration: none;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_326_8_2 {
+  font-size: 12px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_326_9 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_326_10 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_326_10_1 {
+  font-size: 12px;
+  font-family: "Arial-Bold";
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 100%;
+  text-decoration: none;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_326_10_2 {
+  font-size: 12px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_326_11 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_326_12 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_326_13 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_326_14 {
+  line-height: 13.798828125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-group-2_327 {
+  width: 237px;
+  height: 80px;
+  position: absolute;
+  left: 38px;
+  top: 410px;
+}
+
+.Pixso-group-2_328 {
+  width: 237px;
+  height: 80px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.Pixso-rectangle-2_329 {
+  width: 237px;
+  height: 80px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-color: rgba(247.03125, 246.78421020507812, 246.78421020507812, 1);
+}
+
+.Pixso-text-2_330 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: Regular;
+  line-height: 100%;
+  color: rgba(206, 61, 53, 1);
+  width: 213px;
+  height: 62px;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+.Pixso-paragraph-2_330_0 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_330_0_1 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  color: rgba(206, 61, 53, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_330_0_2 {
+  font-size: 11px;
+  font-family: "Arial-Regular";
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 100%;
+  text-decoration: none;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_330_1 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-text-2_331 {
+  font-size: 11px;
+  font-family: "Arial-Bold";
+  font-weight: Bold;
+  line-height: 100%;
+  color: rgba(0, 0, 20, 1);
+  width: 234px;
+  height: 30px;
+  position: absolute;
+  left: 38px;
+  top: 376px;
+}
+
+.Pixso-paragraph-2_331_0 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_331_0_1 {
+  font-size: 11px;
+  font-family: "Arial-Bold";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_331_1 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-2_331_1_1 {
+  font-size: 11px;
+  font-family: "Arial-Bold";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_331_2 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-2_331_3 {
+  line-height: 12.64892578125px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+
+  </style>
+</head>
+<body>
+<div class="scroll-container">
+  <div id="0_1" class="Pixso-canvas-0_1">
+    <div id="2_5" class="Pixso-frame-2_5">
+      <div id="2_326" class="Pixso-text-2_326">
+        <p id="2_326_0" class="Pixso-paragraph-2_326_0">
+<span id="2_326_0_1" class="Pixso-span-2_326_0_1">SMS-сообщения/Push-уведомления. Установление режима «Фикс» осуществляется Банком </span></p>
+        <p id="2_326_1" class="Pixso-paragraph-2_326_1">
+<span id="2_326_1_1" class="Pixso-span-2_326_1_1">в день подписания мной Дополнительного соглашения.</span></p>
+        <p id="2_326_2" class="Pixso-paragraph-2_326_2">&nbsp;</p>
+        <p id="2_326_3" class="Pixso-paragraph-2_326_3">
+<span id="2_326_3_1" class="Pixso-span-2_326_3_1">3.2. </span><span id="2_326_3_2" class="Pixso-span-2_326_3_2">Дополнительное соглашение вступает в силу в дату принятия (акцепта) Банком моего Предложения (оферты) и действует до полного исполнения Сторонами обязательств </span></p>
+        <p id="2_326_4" class="Pixso-paragraph-2_326_4">
+<span id="2_326_4_1" class="Pixso-span-2_326_4_1">по Договору, неотъемлемой частью которого оно является. Датой заключения Дополнительного соглашения будет являться дата акцепта Банком моего Предложения (оферты) о заключении Дополнительного соглашения.</span></p>
+        <p id="2_326_5" class="Pixso-paragraph-2_326_5">&nbsp;</p>
+        <p id="2_326_6" class="Pixso-paragraph-2_326_6">
+<span id="2_326_6_1" class="Pixso-span-2_326_6_1">3.3. </span><span id="2_326_6_2" class="Pixso-span-2_326_6_2">С даты заключения Дополнительного соглашения дальнейшее исполнение Договора осуществляется Сторонами на условиях режима «Фикс», предусмотренных Общими <br>условиями. Все остальные условия Договора, изменение которых не предусмотрено Дополнительным соглашением, сохраняют свою силу и действуют в полном объеме. </span></p>
+        <p id="2_326_7" class="Pixso-paragraph-2_326_7">&nbsp;</p>
+        <p id="2_326_8" class="Pixso-paragraph-2_326_8">
+<span id="2_326_8_1" class="Pixso-span-2_326_8_1">3.4.</span><span id="2_326_8_2" class="Pixso-span-2_326_8_2"> Термины, используемые в Дополнительном соглашении и не определенные по тексту, применяются в том значении, в котором они используются в Договоре.</span></p>
+        <p id="2_326_9" class="Pixso-paragraph-2_326_9">&nbsp;</p>
+        <p id="2_326_10" class="Pixso-paragraph-2_326_10">
+<span id="2_326_10_1" class="Pixso-span-2_326_10_1">4. </span><span id="2_326_10_2" class="Pixso-span-2_326_10_2">Дополнительное соглашение оформлено мной в виде электронного документа и подписано простой электронной подписью, сформированной в соответствии с ранее заключенным между мной и Банком Договором банковского обслуживания, в порядке, определенном Правилами электронного взаимодействия. </span></p>
+        <p id="2_326_11" class="Pixso-paragraph-2_326_11">&nbsp;</p>
+        <p id="2_326_12" class="Pixso-paragraph-2_326_12">&nbsp;</p>
+        <p id="2_326_13" class="Pixso-paragraph-2_326_13">&nbsp;</p>
+        <p id="2_326_14" class="Pixso-paragraph-2_326_14">&nbsp;</p>
+      </div>
+      <div id="2_327" class="Pixso-group-2_327">
+        <div id="2_328" class="Pixso-group-2_328">
+          <div id="2_329" class="Pixso-rectangle-2_329"></div>
+          <div id="2_330" class="Pixso-text-2_330">
+            <p id="2_330_0" class="Pixso-paragraph-2_330_0">
+<span id="2_330_0_1" class="Pixso-span-2_330_0_1">{id22}</span><span id="2_330_0_2" class="Pixso-span-2_330_0_2"> </span></p>
+            <p id="2_330_1" class="Pixso-paragraph-2_330_1">&nbsp;</p>
+          </div>
+        </div>
+      </div>
+      <div id="2_331" class="Pixso-text-2_331">
+        <p id="2_331_0" class="Pixso-paragraph-2_331_0">
+<span id="2_331_0_1" class="Pixso-span-2_331_0_1">Дополнительное соглашение подписано </span></p>
+        <p id="2_331_1" class="Pixso-paragraph-2_331_1">
+<span id="2_331_1_1" class="Pixso-span-2_331_1_1">простой электронной подписью Клиента</span></p>
+        <p id="2_331_2" class="Pixso-paragraph-2_331_2">&nbsp;</p>
+        <p id="2_331_3" class="Pixso-paragraph-2_331_3">&nbsp;</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,237 @@
+{
+  "elements": [
+    {
+      "elementId": "2_326_0_1",
+      "type": "STATIC_TEXT",
+      "content": "SMS-сообщения/Push-уведомления. Установление режима «Фикс» осуществляется Банком ",
+      "fontFamily": "Arial-Regular",
+      "fontSize": 12,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_326_1_1",
+      "type": "STATIC_TEXT",
+      "content": "в день подписания мной Дополнительного соглашения.",
+      "fontFamily": "Arial-Regular",
+      "fontSize": 12,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_326_2",
+      "type": "STATIC_TEXT",
+      "content": "",
+      "fontFamily": "Arial-Regular",
+      "fontSize": 12,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_326_3_1",
+      "type": "STATIC_TEXT",
+      "content": "3.2. ",
+      "fontFamily": "Arial-Bold",
+      "fontSize": 12,
+      "isBold": true,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_326_3_2",
+      "type": "STATIC_TEXT",
+      "content": "Дополнительное соглашение вступает в силу в дату принятия (акцепта) Банком моего Предложения (оферты) и действует до полного исполнения Сторонами обязательств ",
+      "fontFamily": "Arial-Regular",
+      "fontSize": 12,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_326_4_1",
+      "type": "STATIC_TEXT",
+      "content": "по Договору, неотъемлемой частью которого оно является. Датой заключения Дополнительного соглашения будет являться дата акцепта Банком моего Предложения (оферты) о заключении Дополнительного соглашения.",
+      "fontFamily": "Arial-Regular",
+      "fontSize": 12,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_326_5",
+      "type": "STATIC_TEXT",
+      "content": "",
+      "fontFamily": "Arial-Regular",
+      "fontSize": 12,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_326_6_1",
+      "type": "STATIC_TEXT",
+      "content": "3.3. ",
+      "fontFamily": "Arial-Bold",
+      "fontSize": 12,
+      "isBold": true,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_326_6_2",
+      "type": "STATIC_TEXT",
+      "content": "С даты заключения Дополнительного соглашения дальнейшее исполнение Договора осуществляется Сторонами на условиях режима «Фикс», предусмотренных Общими \nусловиями. Все остальные условия Договора, изменение которых не предусмотрено Дополнительным соглашением, сохраняют свою силу и действуют в полном объеме. ",
+      "fontFamily": "Arial-Regular",
+      "fontSize": 12,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_326_7",
+      "type": "STATIC_TEXT",
+      "content": "",
+      "fontFamily": "Arial-Regular",
+      "fontSize": 12,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_326_8_1",
+      "type": "STATIC_TEXT",
+      "content": "3.4.",
+      "fontFamily": "Arial-Bold",
+      "fontSize": 12,
+      "isBold": true,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_326_8_2",
+      "type": "STATIC_TEXT",
+      "content": " Термины, используемые в Дополнительном соглашении и не определенные по тексту, применяются в том значении, в котором они используются в Договоре.",
+      "fontFamily": "Arial-Regular",
+      "fontSize": 12,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_326_9",
+      "type": "STATIC_TEXT",
+      "content": "",
+      "fontFamily": "Arial-Regular",
+      "fontSize": 12,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_326_10_1",
+      "type": "STATIC_TEXT",
+      "content": "4. ",
+      "fontFamily": "Arial-Bold",
+      "fontSize": 12,
+      "isBold": true,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_326_10_2",
+      "type": "STATIC_TEXT",
+      "content": "Дополнительное соглашение оформлено мной в виде электронного документа и подписано простой электронной подписью, сформированной в соответствии с ранее заключенным между мной и Банком Договором банковского обслуживания, в порядке, определенном Правилами электронного взаимодействия. ",
+      "fontFamily": "Arial-Regular",
+      "fontSize": 12,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_326_11",
+      "type": "STATIC_TEXT",
+      "content": "",
+      "fontFamily": "Arial-Regular",
+      "fontSize": 12,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_326_12",
+      "type": "STATIC_TEXT",
+      "content": "",
+      "fontFamily": "Arial-Regular",
+      "fontSize": 12,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_326_13",
+      "type": "STATIC_TEXT",
+      "content": "",
+      "fontFamily": "Arial-Regular",
+      "fontSize": 12,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_326_14",
+      "type": "STATIC_TEXT",
+      "content": "",
+      "fontFamily": "Arial-Regular",
+      "fontSize": 12,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_329",
+      "type": "RECTANGLE",
+      "backgroundColorHex": "#F7F6F6",
+      "groupId": "2_327"
+    },
+    {
+      "elementId": "2_330_0_1",
+      "type": "TEXT_FIELD",
+      "content": "id22",
+      "fontFamily": "Arial-Regular",
+      "fontSize": 11,
+      "colorHex": "#CE3D35",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top",
+      "groupId": "2_327"
+    },
+    {
+      "elementId": "2_331_0_1",
+      "type": "STATIC_TEXT",
+      "content": "Дополнительное соглашение подписано",
+      "fontFamily": "Arial-Bold",
+      "fontSize": 11,
+      "isBold": true,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    },
+    {
+      "elementId": "2_331_1_1",
+      "type": "STATIC_TEXT",
+      "content": "простой электронной подписью Клиента",
+      "fontFamily": "Arial-Bold",
+      "fontSize": 11,
+      "isBold": true,
+      "colorHex": "#000014",
+      "horizontalAlignment": "Left",
+      "verticalAlignment": "Top"
+    }
+  ]
+}

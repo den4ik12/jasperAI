@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<style name="Style_Arial_13_R" fontName="Arial" fontSize="13" isBold="false"/>
+	<style name="Style_Arial_9_R" fontName="Arial" fontSize="9" isBold="false"/>
+	<style name="Style_Roboto_19_R" fontName="Roboto" fontSize="19" isBold="false"/>
+	<style name="Style_Roboto_13_R" fontName="Roboto" fontSize="13" isBold="false"/>
+	<style name="Style_Arial_11_B" fontName="Arial" fontSize="11" isBold="true"/>
+	<style name="Style_Arial_7_R" fontName="Arial" fontSize="7" isBold="false"/>
+	<field name="dynamicText" class="java.lang.String"/>
+	<field name="operationDate" class="java.lang.String"/>
+	<field name="senderCard" class="java.lang.String"/>
+	<field name="senderBank" class="java.lang.String"/>
+	<field name="senderBik" class="java.lang.String"/>
+	<field name="senderCorrespondentAccount" class="java.lang.String"/>
+	<field name="senderFullName" class="java.lang.String"/>
+	<field name="amount" class="java.lang.String"/>
+	<field name="commission" class="java.lang.String"/>
+	<field name="transferPurpose" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="documentNumber" class="java.lang.String"/>
+	<field name="legalDisclaimer" class="java.lang.String"/>
+	<field name="clientFullName" class="java.lang.String"/>
+	<field name="recipientCard" class="java.lang.String"/>
+	<field name="recipientFullName" class="java.lang.String"/>
+	<field name="recipientBank" class="java.lang.String"/>
+	<field name="recipientBik" class="java.lang.String"/>
+	<field name="recipientCorrespondentAccount" class="java.lang.String"/>
+	<field name="officeInfo" class="java.lang.String"/>
+	<field name="operationType" class="java.lang.String"/>
+	<field name="employeeFullName" class="java.lang.String"/>
+	<detail>
+		<band height="793" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="203" y="31" width="188" height="29"/>
+				<imageExpression><![CDATA["./image/a1306468cdde47eae62ac260122012f971913560.png"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="0" y="0" width="0" height="0"/>
+				<graphicElement>
+					<pen lineWidth="3.0" lineColor="#5C97EE"/>
+				</graphicElement>
+			</rectangle>
+			<textField textAdjust="StretchHeight">
+				<reportElement style="Style_Arial_13_R" positionType="Float" x="167" y="135" width="4" height="20" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{dynamicText}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Style_Arial_9_R" positionType="Float" x="262" y="75" width="72" height="18" forecolor="#9999A1"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[Чек по операции]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement style="Style_Arial_9_R" positionType="Float" x="268" y="89" width="58" height="18" isRemoveLineWhenBlank="true" forecolor="#9999A1"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{operationDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Style_Roboto_19_R" positionType="Float" x="202" y="765" width="191" height="28" forecolor="#4079CB"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Принят к исполнению]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Style_Roboto_13_R" positionType="Float" x="252" y="749" width="90" height="20" forecolor="#4079CB"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ПАО Сбербанк]]></text>
+			</staticText>
+			<frame>
+				<reportElement positionType="Float" x="161" y="267" width="434" height="237" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{senderCard}!=null]]></printWhenExpression>
+				</reportElement>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="0" width="434" height="18" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{senderCard}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="18" width="434" height="18" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{senderBank}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="36" width="434" height="18" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{senderBik}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="54" width="434" height="18" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{senderCorrespondentAccount}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="72" width="434" height="18" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{senderFullName}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="90" width="434" height="18" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="108" width="434" height="18" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{commission}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="126" width="434" height="18" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{transferPurpose}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="144" width="434" height="18" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="162" width="434" height="18" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{documentNumber}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="180" width="422" height="57" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{legalDisclaimer}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="41" y="600" width="186" height="14"/>
+				<staticText>
+					<reportElement style="Style_Arial_11_B" positionType="Float" x="0" y="0" width="186" height="14" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<text><![CDATA[Документ подтвержден банком]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="41" y="640" width="195" height="11"/>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="0" width="195" height="11" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<text><![CDATA[Подпись сотрудника: ____________________]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="41" y="545" width="148" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{clientFullName}!=null]]></printWhenExpression>
+				</reportElement>
+				<staticText>
+					<reportElement style="Style_Arial_7_R" positionType="Float" x="0" y="0" width="73" height="14" forecolor="#80808A"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[ФИО клиента]]></text>
+				</staticText>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_7_R" positionType="Float" x="0" y="6" width="148" height="14" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{clientFullName}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="161" y="165" width="434" height="90" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{recipientCard}!=null]]></printWhenExpression>
+				</reportElement>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="0" width="434" height="18" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{recipientCard}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="18" width="434" height="18" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{recipientFullName}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="36" width="434" height="18" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{recipientBank}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="54" width="434" height="18" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{recipientBik}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="72" width="434" height="18" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{recipientCorrespondentAccount}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="72" y="165" width="73" height="90"/>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="35" y="0" width="38" height="18" forecolor="#9999A1"/>
+					<textElement textAlignment="Right" verticalAlignment="Top"/>
+					<text><![CDATA[На карту]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="18" width="73" height="18" forecolor="#9999A1"/>
+					<textElement textAlignment="Right" verticalAlignment="Top"/>
+					<text><![CDATA[ФИО получателя]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="1" y="36" width="72" height="18" forecolor="#9999A1"/>
+					<textElement textAlignment="Right" verticalAlignment="Top"/>
+					<text><![CDATA[Банк получателя]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="55" y="54" width="18" height="18" forecolor="#9999A1"/>
+					<textElement textAlignment="Right" verticalAlignment="Top"/>
+					<text><![CDATA[БИК]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="34" y="72" width="39" height="18" forecolor="#9999A1"/>
+					<textElement textAlignment="Right" verticalAlignment="Top"/>
+					<text><![CDATA[Кор. счёт]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="41" y="529" width="200" height="51"/>
+				<staticText>
+					<reportElement style="Style_Arial_11_B" positionType="Float" x="0" y="0" width="200" height="14" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<text><![CDATA[Документ подтвержден клиентом]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="40" width="198" height="11" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<text><![CDATA[Подпись клиента: _______________________]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="161" y="117" width="459" height="36" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{officeInfo}!=null]]></printWhenExpression>
+				</reportElement>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="0" width="434" height="18" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{officeInfo}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="18" width="459" height="18" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{operationType}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="41" y="616" width="148" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{employeeFullName}!=null]]></printWhenExpression>
+				</reportElement>
+				<staticText>
+					<reportElement style="Style_Arial_7_R" positionType="Float" x="0" y="0" width="73" height="14" forecolor="#80808A"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[ФИО сотрудника]]></text>
+				</staticText>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Style_Arial_7_R" positionType="Float" x="0" y="6" width="148" height="14" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{employeeFullName}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="64" y="267" width="81" height="216"/>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="47" y="0" width="34" height="18" forecolor="#9999A1"/>
+					<textElement textAlignment="Right" verticalAlignment="Top"/>
+					<text><![CDATA[С карты]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="1" y="18" width="80" height="18" forecolor="#9999A1"/>
+					<textElement textAlignment="Right" verticalAlignment="Top"/>
+					<text><![CDATA[Банк плательщика]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="63" y="36" width="18" height="18" forecolor="#9999A1"/>
+					<textElement textAlignment="Right" verticalAlignment="Top"/>
+					<text><![CDATA[БИК]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="42" y="54" width="39" height="18" forecolor="#9999A1"/>
+					<textElement textAlignment="Right" verticalAlignment="Top"/>
+					<text><![CDATA[Кор. счёт]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="72" width="81" height="18" forecolor="#9999A1"/>
+					<textElement textAlignment="Right" verticalAlignment="Top"/>
+					<text><![CDATA[ФИО плательщика]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="52" y="90" width="29" height="18" forecolor="#9999A1"/>
+					<textElement textAlignment="Right" verticalAlignment="Top"/>
+					<text><![CDATA[Сумма]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="39" y="108" width="42" height="18" forecolor="#9999A1"/>
+					<textElement textAlignment="Right" verticalAlignment="Top"/>
+					<text><![CDATA[Комиссия]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="16" y="126" width="65" height="18" forecolor="#9999A1"/>
+					<textElement textAlignment="Right" verticalAlignment="Top"/>
+					<text><![CDATA[Цель перевода]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="29" y="144" width="52" height="18" forecolor="#9999A1"/>
+					<textElement textAlignment="Right" verticalAlignment="Top"/>
+					<text><![CDATA[Назначение]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="5" y="162" width="76" height="18" forecolor="#9999A1"/>
+					<textElement textAlignment="Right" verticalAlignment="Top"/>
+					<text><![CDATA[Номер документа]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="9" y="180" width="72" height="18" forecolor="#9999A1"/>
+					<textElement textAlignment="Right" verticalAlignment="Top"/>
+					<text><![CDATA[Дополнительная]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="9" y="198" width="72" height="18" forecolor="#9999A1"/>
+					<textElement textAlignment="Right" verticalAlignment="Top"/>
+					<text><![CDATA[информация]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="93" y="117" width="52" height="36"/>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="0" y="0" width="52" height="18" forecolor="#9999A1"/>
+					<textElement textAlignment="Right" verticalAlignment="Top"/>
+					<text><![CDATA[Офис банка]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Style_Arial_9_R" positionType="Float" x="9" y="18" width="43" height="18" forecolor="#9999A1"/>
+					<textElement textAlignment="Right" verticalAlignment="Top"/>
+					<text><![CDATA[Операция]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

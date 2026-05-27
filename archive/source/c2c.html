@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixso HTML</title>
+  <link rel="stylesheet" href="css/font.css">
+  <script src="js/animation.js"></script>
+  <style>
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ol,ul,menu {
+  padding-inline-start: 0;
+  list-style: none;
+}
+
+ol li {
+  list-style-position: inside;
+}
+
+ol li::marker, ul li::before {
+  letter-spacing: 0;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body { 
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background-color: white;
+}
+    
+span {
+  word-break: break-word;
+}
+
+.scroll-container-0_1 {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.Pixso-canvas-0_1 {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.Pixso-frame-22229_4237 {
+  width: 595px;
+  height: 842px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.Pixso-rectangle-22229_4238 {
+  width: 188px;
+  height: 29px;
+  position: absolute;
+  left: 50%;
+  top: 31px;
+  transform: translateX(calc(-50% + -0.5px));
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(./image/a1306468cdde47eae62ac260122012f971913560.png);
+}
+
+.Pixso-text-22229_4239 {
+  font-size: 14px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 1);
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 167px;
+  top: 135px;
+  white-space: nowrap;
+  flex-grow: 0;
+}
+
+.Pixso-paragraph-22229_4239_0 {
+  line-height: 20px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.Pixso-frame-22229_4240 {
+  width: 53px;
+  height: auto;
+  position: absolute;
+  left: 92px;
+  top: 117px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+.Pixso-paragraph-22229_4241 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: right;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-paragraph-22229_4242 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: right;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-frame-22229_4243 {
+  width: 74px;
+  height: auto;
+  position: absolute;
+  left: 71px;
+  top: 165px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+.Pixso-paragraph-22229_4244 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: right;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-paragraph-22229_4245 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: right;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-paragraph-22229_4246 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: right;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-paragraph-22229_4247 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: right;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-paragraph-22229_4248 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: right;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-paragraph-22229_4249 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: center;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 75px;
+  transform: translateX(calc(-50% + 0px));
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-paragraph-22229_4250 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: center;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 89px;
+  transform: translateX(calc(-50% + 0px));
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-frame-22229_4251 {
+  width: 82px;
+  height: auto;
+  position: absolute;
+  left: 63px;
+  top: 267px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+.Pixso-paragraph-22229_4252 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: right;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-paragraph-22229_4253 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: right;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-paragraph-22229_4254 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: right;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-paragraph-22229_4255 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: right;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-paragraph-22229_4256 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: right;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-paragraph-22229_4257 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: right;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-paragraph-22229_4258 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: right;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-paragraph-22229_4259 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: right;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-paragraph-22229_4260 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: right;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-paragraph-22229_4261 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: right;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-text-22229_4262 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  text-align: right;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: nowrap;
+  flex-grow: 0;
+}
+
+.Pixso-paragraph-22229_4262_0 {
+  line-height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-22229_4262_0_1 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-22229_4262_1 {
+  line-height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-span-22229_4262_1_1 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: 400;
+  color: rgba(0, 0, 20, 0.4000000059604645);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-frame-22229_4263 {
+  width: 434px;
+  height: auto;
+  position: absolute;
+  left: 161px;
+  top: 117px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.Pixso-paragraph-22229_4264 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 20, 1);
+  width: 434px;
+  height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-22229_4265 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 20, 1);
+  width: 459px;
+  height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-frame-22229_4266 {
+  width: 434px;
+  height: auto;
+  position: absolute;
+  left: 161px;
+  top: 165px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.Pixso-paragraph-22229_4267 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 20, 1);
+  width: 434px;
+  height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-22229_4268 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 20, 1);
+  width: 434px;
+  height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-22229_4269 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 20, 1);
+  width: 434px;
+  height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-22229_4270 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 20, 1);
+  width: 434px;
+  height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-22229_4271 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 20, 1);
+  width: 434px;
+  height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-frame-22229_4272 {
+  width: 434px;
+  height: auto;
+  position: absolute;
+  left: 161px;
+  top: 267px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.Pixso-paragraph-22229_4273 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 20, 1);
+  width: 434px;
+  height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-22229_4274 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 20, 1);
+  width: 434px;
+  height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-22229_4275 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 20, 1);
+  width: 434px;
+  height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-22229_4276 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 20, 1);
+  width: 434px;
+  height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-22229_4277 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 20, 1);
+  width: 434px;
+  height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-22229_4278 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 20, 1);
+  width: 434px;
+  height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-22229_4279 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 20, 1);
+  width: 434px;
+  height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-22229_4280 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 20, 1);
+  width: 434px;
+  height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-22229_4281 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 20, 1);
+  width: 434px;
+  height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-22229_4282 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 20, 1);
+  width: 434px;
+  height: 18px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-22229_4283 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 13px;
+  color: rgba(0, 0, 20, 1);
+  width: 422px;
+  height: 57px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-frame-22229_4284 {
+  width: 200px;
+  height: auto;
+  position: absolute;
+  left: 41px;
+  top: 529px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.Pixso-frame-22229_4285 {
+  width: 200px;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.Pixso-frame-22229_4286 {
+  width: 200px;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.Pixso-paragraph-22229_4287 {
+  font-size: 12px;
+  font-family: "Arial";
+  font-weight: Bold;
+  color: rgba(0, 0, 20, 1);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-frame-22229_4288 {
+  width: 148px;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.Pixso-paragraph-22229_4289 {
+  font-size: 8px;
+  font-family: "Arial";
+  font-weight: Regular;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.5);
+  width: 73px;
+  height: 14px;
+  position: relative;
+  flex-shrink: 0;
+  margin-bottom: -4px;
+}
+
+.Pixso-paragraph-22229_4290 {
+  font-size: 8px;
+  font-family: "Arial";
+  font-weight: Regular;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 20, 1);
+  margin-top: -4px;
+  width: 148px;
+  height: 14px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-22229_4291 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  color: rgba(0, 0, 20, 1);
+  width: 198px;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.Pixso-frame-22229_4292 {
+  width: 196px;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.Pixso-frame-22229_4293 {
+  width: 187px;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.Pixso-paragraph-22229_4294 {
+  font-size: 12px;
+  font-family: "Arial";
+  font-weight: Bold;
+  color: rgba(0, 0, 20, 1);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-frame-22229_4295 {
+  width: 148px;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.Pixso-paragraph-22229_4296 {
+  font-size: 8px;
+  font-family: "Arial";
+  font-weight: Regular;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 18px;
+  color: rgba(0, 0, 20, 0.5);
+  width: 73px;
+  height: 14px;
+  position: relative;
+  flex-shrink: 0;
+  margin-bottom: -4px;
+}
+
+.Pixso-paragraph-22229_4297 {
+  font-size: 8px;
+  font-family: "Arial";
+  font-weight: Regular;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: -0.4000000059604645px;
+  line-height: 20px;
+  color: rgba(0, 0, 20, 1);
+  margin-top: -4px;
+  width: 148px;
+  height: 14px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.Pixso-paragraph-22229_4298 {
+  font-size: 10px;
+  font-family: "Arial";
+  font-weight: Regular;
+  letter-spacing: -0.4000000059604645px;
+  color: rgba(0, 0, 20, 1);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-frame-22229_4299 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: transparent;
+}
+
+.stroke-wrapper-22229_4299 {
+  position: absolute;
+  left: 50%;
+  bottom: 37px;
+  width: 248px;
+  height: 68px;
+  transform: translateX(calc(-50% + -0.5px));
+}
+
+.stroke-22229_4299 {
+  position: absolute;
+  inset: 0px;
+  border-radius: 0px 0px 0px 0px;
+  border-width: 3px 3px 3px 3px;
+  border-style: solid;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-color: rgba(92.12332153320312, 151.8909912109375, 238.31182861328125, 1);
+}
+
+.Pixso-paragraph-22229_4300 {
+  font-size: 20px;
+  font-family: "Roboto";
+  font-weight: Regular;
+  color: rgba(64.40081787109375, 121.51683044433594, 203.35470581054688, 1);
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0px)) translateY(calc(-50% + 7.5px));
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.Pixso-paragraph-22229_4301 {
+  font-size: 14px;
+  font-family: "Roboto";
+  font-weight: Medium;
+  text-align: center;
+  color: rgba(64.40081787109375, 121.51683044433594, 203.35470581054688, 1);
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0px)) translateY(calc(-50% + -12px));
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+  </style>
+</head>
+<body>
+<div class="scroll-container-0_1">
+  <div id="0_1" class="Pixso-canvas-0_1">
+    <div id="22229_4237" class="Pixso-frame-22229_4237">
+      <div id="22229_4238" class="Pixso-rectangle-22229_4238"></div>
+      <div id="22229_4239" class="Pixso-text-22229_4239">
+        <p id="22229_4239_0" class="Pixso-paragraph-22229_4239_0">&nbsp;</p>
+      </div>
+      <div id="22229_4240" class="Pixso-frame-22229_4240">
+        <p id="22229_4241" class="Pixso-paragraph-22229_4241">Офис банка</p>
+        <p id="22229_4242" class="Pixso-paragraph-22229_4242">Операция</p>
+      </div>
+      <div id="22229_4243" class="Pixso-frame-22229_4243">
+        <p id="22229_4244" class="Pixso-paragraph-22229_4244">На карту</p>
+        <p id="22229_4245" class="Pixso-paragraph-22229_4245">ФИО получателя</p>
+        <p id="22229_4246" class="Pixso-paragraph-22229_4246">Банк получателя</p>
+        <p id="22229_4247" class="Pixso-paragraph-22229_4247">БИК</p>
+        <p id="22229_4248" class="Pixso-paragraph-22229_4248">Кор. счёт</p>
+      </div>
+      <p id="22229_4249" class="Pixso-paragraph-22229_4249">Чек по операции</p>
+      <p id="22229_4250" class="Pixso-paragraph-22229_4250">14 июля 2023</p>
+      <div id="22229_4251" class="Pixso-frame-22229_4251">
+        <p id="22229_4252" class="Pixso-paragraph-22229_4252">С карты</p>
+        <p id="22229_4253" class="Pixso-paragraph-22229_4253">Банк плательщика</p>
+        <p id="22229_4254" class="Pixso-paragraph-22229_4254">БИК</p>
+        <p id="22229_4255" class="Pixso-paragraph-22229_4255">Кор. счёт</p>
+        <p id="22229_4256" class="Pixso-paragraph-22229_4256">ФИО плательщика</p>
+        <p id="22229_4257" class="Pixso-paragraph-22229_4257">Сумма</p>
+        <p id="22229_4258" class="Pixso-paragraph-22229_4258">Комиссия</p>
+        <p id="22229_4259" class="Pixso-paragraph-22229_4259">Цель перевода</p>
+        <p id="22229_4260" class="Pixso-paragraph-22229_4260">Назначение</p>
+        <p id="22229_4261" class="Pixso-paragraph-22229_4261">Номер документа</p>
+        <div id="22229_4262" class="Pixso-text-22229_4262">
+          <p id="22229_4262_0" class="Pixso-paragraph-22229_4262_0">
+<span id="22229_4262_0_1" class="Pixso-span-22229_4262_0_1">Дополнительная</span></p>
+          <p id="22229_4262_1" class="Pixso-paragraph-22229_4262_1">
+<span id="22229_4262_1_1" class="Pixso-span-22229_4262_1_1">информация</span></p>
+        </div>
+      </div>
+      <div id="22229_4263" class="Pixso-frame-22229_4263">
+        <p id="22229_4264" class="Pixso-paragraph-22229_4264">№9038/0880 г. Москва, Коровинское ш. д. 21, к.1 900, 8 (800) 555-55-50</p>
+        <p id="22229_4265" class="Pixso-paragraph-22229_4265">Перевод клиенту Сбербанка</p>
+      </div>
+      <div id="22229_4266" class="Pixso-frame-22229_4266">
+        <p id="22229_4267" class="Pixso-paragraph-22229_4267">Полностью ?</p>
+        <p id="22229_4268" class="Pixso-paragraph-22229_4268">Ирина Анатольевна Б.</p>
+        <p id="22229_4269" class="Pixso-paragraph-22229_4269">ПАО Сбербанк Г. Москва</p>
+        <p id="22229_4270" class="Pixso-paragraph-22229_4270">044525225</p>
+        <p id="22229_4271" class="Pixso-paragraph-22229_4271">30101 810 4 0000 0000225</p>
+      </div>
+      <div id="22229_4272" class="Pixso-frame-22229_4272">
+        <p id="22229_4273" class="Pixso-paragraph-22229_4273">Полностью ?</p>
+        <p id="22229_4274" class="Pixso-paragraph-22229_4274">ПАО Сбербанк Г. Москва</p>
+        <p id="22229_4275" class="Pixso-paragraph-22229_4275">044525225</p>
+        <p id="22229_4276" class="Pixso-paragraph-22229_4276">30101 810 4 0000 0000225</p>
+        <p id="22229_4277" class="Pixso-paragraph-22229_4277">Иван Иванович Иванов</p>
+        <p id="22229_4278" class="Pixso-paragraph-22229_4278">30 ₽</p>
+        <p id="22229_4279" class="Pixso-paragraph-22229_4279">30 ₽</p>
+        <p id="22229_4280" class="Pixso-paragraph-22229_4280">Другое</p>
+        <p id="22229_4281" class="Pixso-paragraph-22229_4281">Не обязательно</p>
+        <p id="22229_4282" class="Pixso-paragraph-22229_4282">65677109</p>
+        <p id="22229_4283" class="Pixso-paragraph-22229_4283">В соответствии с законодательством РФ после списания денежных средств со счёта / авторизации по карте отмена перевода отправителем невозможна. Получателю для возврата перевода необходимо позвонить на номер 900 или оформить заявление в любом отделении Банка. С условиями совершения ПАО Сбербанк данного перевода ознакомлен и согласен.</p>
+      </div>
+      <div id="22229_4284" class="Pixso-frame-22229_4284">
+        <div id="22229_4285" class="Pixso-frame-22229_4285">
+          <div id="22229_4286" class="Pixso-frame-22229_4286">
+            <p id="22229_4287" class="Pixso-paragraph-22229_4287">Документ подтвержден клиентом</p>
+            <div id="22229_4288" class="Pixso-frame-22229_4288">
+              <p id="22229_4289" class="Pixso-paragraph-22229_4289">ФИО клиента</p>
+              <p id="22229_4290" class="Pixso-paragraph-22229_4290">Иван Иванович И.</p>
+            </div>
+          </div>
+          <p id="22229_4291" class="Pixso-paragraph-22229_4291">Подпись клиента: _______________________</p>
+        </div>
+        <div id="22229_4292" class="Pixso-frame-22229_4292">
+          <div id="22229_4293" class="Pixso-frame-22229_4293">
+            <p id="22229_4294" class="Pixso-paragraph-22229_4294">Документ подтвержден банком</p>
+            <div id="22229_4295" class="Pixso-frame-22229_4295">
+              <p id="22229_4296" class="Pixso-paragraph-22229_4296">ФИО сотрудника</p>
+              <p id="22229_4297" class="Pixso-paragraph-22229_4297">Иванова Алла Сергеевна</p>
+            </div>
+          </div>
+          <p id="22229_4298" class="Pixso-paragraph-22229_4298">Подпись сотрудника: ____________________</p>
+        </div>
+      </div>
+      <div id="22229_4299" class="stroke-wrapper-22229_4299">
+        <div class="Pixso-frame-22229_4299">
+          <p id="22229_4300" class="Pixso-paragraph-22229_4300">Принят к исполнению</p>
+          <p id="22229_4301" class="Pixso-paragraph-22229_4301">ПАО Сбербанк</p>
+        </div>
+        <div class="stroke-22229_4299"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+</script>
+
+</body>
+</html>

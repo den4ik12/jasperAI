@@ -41,7 +41,7 @@ if [ ! -f "$ENV_FILE" ]; then
 
   fail \
     "ENV_FILE_MISSING" \
-    "Выведи на экран пользователю: перед запуском нужно создать ./env. Спроси провайдера DeepSeek или GigaChat и API-ключ. После ответа создай ./env по шаблону из SKILL.md. Не запускай start.sh до повторного успешного ./scripts/pre-start.sh."
+    "Выведи на экран пользователю: перед запуском нужно создать ./env. Обязательно запроси два значения: провайдер строго из вариантов DeepSeek или GigaChat и API-ключ для выбранного провайдера. Нельзя пропускать провайдера или ключ. После ответа создай ./env по шаблону из SKILL.md. Не запускай start.sh до повторного успешного ./scripts/pre-start.sh."
 fi
 
 set -a
@@ -60,20 +60,20 @@ case "$provider" in
     if [ -z "${DEEPSEEK_API_KEY:-}" ]; then
       fail \
         "DEEPSEEK_API_KEY_MISSING" \
-        "Выведи на экран пользователю: для DeepSeek не заполнен DEEPSEEK_API_KEY. Спроси API-ключ и обнови ./env по шаблону DeepSeek из SKILL.md. Не запускай start.sh до повторного успешного ./scripts/pre-start.sh."
+        "Выведи на экран пользователю: для DeepSeek не заполнен DEEPSEEK_API_KEY. Обязательно запроси API-ключ DeepSeek. Нельзя пропускать ключ или запускать приложение без него. После ответа обнови ./env по шаблону DeepSeek из SKILL.md. Не запускай start.sh до повторного успешного ./scripts/pre-start.sh."
     fi
     ;;
   gigachat)
     if [ -z "${GIGACHAT_API_KEY:-}" ]; then
       fail \
         "GIGACHAT_API_KEY_MISSING" \
-        "Выведи на экран пользователю: для GigaChat не заполнен GIGACHAT_API_KEY. Спроси API-ключ и обнови ./env по шаблону GigaChat из SKILL.md. Не запускай start.sh до повторного успешного ./scripts/pre-start.sh."
+        "Выведи на экран пользователю: для GigaChat не заполнен GIGACHAT_API_KEY. Обязательно запроси API-ключ GigaChat. Нельзя пропускать ключ или запускать приложение без него. После ответа обнови ./env по шаблону GigaChat из SKILL.md. Не запускай start.sh до повторного успешного ./scripts/pre-start.sh."
     fi
     ;;
   *)
     fail \
       "SPRING_AI_MODEL_CHAT_UNSUPPORTED" \
-      "Выведи на экран пользователю: выбран неподдерживаемый провайдер. Спроси, использовать DeepSeek или GigaChat, затем обнови ./env по соответствующему шаблону из SKILL.md. Не запускай start.sh до повторного успешного ./scripts/pre-start.sh."
+      "Выведи на экран пользователю: выбран неподдерживаемый провайдер. Обязательно запроси провайдера строго из двух вариантов: DeepSeek или GigaChat. Затем обязательно запроси API-ключ для выбранного провайдера и обнови ./env по соответствующему шаблону из SKILL.md. Нельзя пропускать провайдера или ключ. Не запускай start.sh до повторного успешного ./scripts/pre-start.sh."
     ;;
 esac
 

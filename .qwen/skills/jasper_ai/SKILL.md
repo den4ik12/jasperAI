@@ -20,7 +20,7 @@ description: Локальный сервис для генерации печа�
 - шаблонами отчетов;
 - локальным редактором печатной формы.
 
-Папка дистрибутива - это папка, в которой лежит `scripts/start.sh`.
+Папка дистрибутива - это папка, в которой лежат `scripts/pre-start.sh`, `scripts/start.sh` и `scripts/stop.sh`.
 
 ```text
 ./jasper_ai.jar
@@ -44,25 +44,34 @@ lsof -nP -iTCP:8080 -sTCP:LISTEN
 
 3. Если порт `8080` занят другим процессом, сообщи пользователю, что порт занят, и покажи найденный процесс.
 
-4. Если `lsof` ничего не выводит, запусти приложение в фоне:
+4. Если `lsof` ничего не выводит, сначала выполни детерминированные проверки:
+
+```bash
+./scripts/pre-start.sh
+```
+
+5. Если `pre-start.sh` вернул `JASPERAI_ERROR_CODE`, обработай структурированную ошибку сразу. `start.sh` не запускай и порт не жди.
+
+6. Если `pre-start.sh` вернул `JASPERAI_PRE_START_STATUS=OK`, запускай Java-приложение:
 
 ```bash
 mkdir -p ./logs
 ./scripts/start.sh > ./logs/start-command.log 2>&1 &
 ```
 
-5. После запуска в фоне подожди до 60 секунд, пока появится процесс на порту `8080`:
+7. После запуска жди появления порта `8080` не дольше 15 секунд. Если `start.sh` уже вернул структурированную ошибку, прекращай ожидание:
 
 ```bash
-for i in $(seq 1 60); do
+for i in $(seq 1 15); do
   lsof -nP -iTCP:8080 -sTCP:LISTEN && break
+  grep -q 'JASPERAI_ERROR_CODE=' ./logs/start-command.log && break
   sleep 1
 done
 ```
 
-6. Если порт `8080` слушает Java/jasper_ai, сообщи пользователю, что приложение запущено, и дай адрес `http://localhost:8080/`.
+8. Если порт `8080` слушает Java/jasper_ai, сообщи пользователю, что приложение запущено, и дай адрес `http://localhost:8080/`.
 
-7. Если после запуска порт `8080` не слушается, проверь вывод команды запуска и лог приложения:
+9. Если порт `8080` не появился, проверь вывод команды запуска и хвост лога приложения:
 
 ```bash
 cat ./logs/start-command.log
@@ -71,7 +80,7 @@ tail -n 80 ./logs/jasperai.log
 
 Не печатай лог целиком. Сообщи пользователю, что приложение не подтвердило запуск, и кратко перескажи релевантные строки из вывода/хвоста лога.
 
-Не проверяй вручную `jasper_ai.jar`, `env`, Java или логи. Это делает `scripts/start.sh`.
+Не проверяй вручную `jasper_ai.jar`, `env`, Java или доступность логов. Это делает `scripts/pre-start.sh`.
 
 ## Сценарий остановки
 
@@ -135,7 +144,7 @@ GIGACHAT_API_KEY=YOUR_KEY
 
 ## Ошибки скриптов
 
-Если `start.sh` или `stop.sh` завершился с ошибкой, найди в stdout/stderr структурированные строки:
+Если `pre-start.sh`, `start.sh` или `stop.sh` завершился с ошибкой, найди в stdout/stderr структурированные строки:
 
 ```text
 JASPERAI_ERROR_CODE=...
@@ -152,12 +161,12 @@ JASPERAI_LOG_FILE=...
 - если есть `JASPERAI_LOG_FILE`, не печатай содержимое лога без отдельной просьбы;
 - не заменяй структурированную ошибку общей фразой.
 
-Если `start.sh` вернул `ENV_FILE_MISSING`, `DEEPSEEK_API_KEY_MISSING`, `GIGACHAT_API_KEY_MISSING` или `SPRING_AI_MODEL_CHAT_UNSUPPORTED`, сообщи пользователю, что перед запуском нужно заполнить `./env`, затем спроси провайдера/API-ключ и создай или обнови `./env`.
+Если `pre-start.sh` вернул `ENV_FILE_MISSING`, `DEEPSEEK_API_KEY_MISSING`, `GIGACHAT_API_KEY_MISSING` или `SPRING_AI_MODEL_CHAT_UNSUPPORTED`, сообщи пользователю, что перед запуском нужно заполнить `./env`, затем спроси провайдера/API-ключ и создай или обнови `./env` без вывода ключа в чат.
 
 Для DeepSeek:
 
 ```bash
-cat > "./env" <<'EOF'
+cat > ./env <<'EOF'
 SPRING_AI_MODEL_CHAT=deepseek
 DEEPSEEK_API_KEY=PASTE_USER_KEY_HERE
 EOF
@@ -166,7 +175,7 @@ EOF
 Для GigaChat:
 
 ```bash
-cat > "./env" <<'EOF'
+cat > ./env <<'EOF'
 SPRING_AI_MODEL_CHAT=gigachat
 GIGACHAT_API_KEY=PASTE_USER_KEY_HERE
 EOF

@@ -7,10 +7,12 @@ fail() {
   code="$1"
   message="$2"
   next_step="$3"
+  resolver="$4"
 
   echo "JASPERAI_ERROR_CODE=$code" >&2
   echo "JASPERAI_ERROR_MESSAGE=$message" >&2
   echo "JASPERAI_NEXT_STEP=$next_step" >&2
+  echo "JASPERAI_ERROR_RESOLVER=$resolver" >&2
   exit 1
 }
 
@@ -18,7 +20,8 @@ if ! command -v lsof >/dev/null 2>&1; then
   fail \
     "LSOF_NOT_FOUND" \
     "lsof не установлен или недоступен в PATH." \
-    "Установите lsof или завершите процесс на порту $PORT вручную."
+    "Установите lsof или завершите процесс на порту $PORT вручную." \
+    "Сообщи пользователю, что команда lsof недоступна, поэтому автоматическая остановка JasperAI невозможна. Попроси пользователя установить lsof или вручную завершить процесс на порту $PORT. Не придумывай альтернативные команды остановки."
 fi
 
 pids="$(lsof -tiTCP:"$PORT" -sTCP:LISTEN || true)"
@@ -38,7 +41,8 @@ for pid in $pids; do
     fail \
       "PROCESS_KILL_FAILED" \
       "Не удалось завершить процесс $pid на порту $PORT." \
-      "Проверьте права пользователя или завершите процесс вручную: kill $pid"
+      "Проверьте права пользователя или завершите процесс вручную: kill $pid" \
+      "Сообщи пользователю, что процесс $pid на порту $PORT не удалось завершить. Попроси проверить права пользователя или завершить процесс вручную. Не повторяй kill бесконечно."
   fi
 done
 
@@ -49,7 +53,8 @@ if [ -n "$remaining_pids" ]; then
   fail \
     "PROCESS_STILL_RUNNING" \
     "После команды kill порт $PORT все еще занят процессом: $remaining_pids" \
-    "Проверьте процесс вручную: lsof -nP -iTCP:$PORT -sTCP:LISTEN"
+    "Проверьте процесс вручную: lsof -nP -iTCP:$PORT -sTCP:LISTEN" \
+    "Сообщи пользователю, что после остановки порт $PORT все еще занят процессом $remaining_pids. Попроси проверить процесс вручную и останови сценарий."
 fi
 
 echo "JASPERAI_STOP_STATUS=STOPPED"

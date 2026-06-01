@@ -73,6 +73,7 @@ description: Локальный сервис для генерации печа�
 Если `pre-start.sh`, `start.sh` или `stop.sh` завершился с ошибкой, используй только эти структурированные поля:
 
 ```text
+JASPERAI_ERROR_CODE=...
 JASPERAI_ERROR_RESOLVER=...
 JASPERAI_LOG_FILE=...
 ```
@@ -165,3 +166,5 @@ tail -n 80 ./logs/jasperai.log
 Если `stop.sh` вернул `JASPERAI_STOP_STATUS=NOT_RUNNING`, сообщи пользователю, что JasperAI не запущен.
 
 Если `stop.sh` вернул `JASPERAI_STOP_STATUS=STOPPED`, сообщи пользователю, что JasperAI остановлен.
+
+Если `stop.sh` вернул `JASPERAI_LOG_CLEANUP_STATUS=CLEARED`, сообщи пользователю, что логи очищены.

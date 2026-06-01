@@ -152,7 +152,7 @@ JASPERAI_LOG_FILE=...
 - если есть `JASPERAI_LOG_FILE`, не печатай содержимое лога без отдельной просьбы;
 - не заменяй структурированную ошибку общей фразой.
 
-Если `start.sh` вернул `ENV_FILE_MISSING`, `DEEPSEEK_API_KEY_MISSING`, `GIGACHAT_API_KEY_MISSING` или `SPRING_AI_MODEL_CHAT_UNSUPPORTED`, спроси провайдера/API-ключ и создай или обнови `./env`.
+Если `start.sh` вернул `ENV_FILE_MISSING`, `DEEPSEEK_API_KEY_MISSING`, `GIGACHAT_API_KEY_MISSING` или `SPRING_AI_MODEL_CHAT_UNSUPPORTED`, сообщи пользователю, что перед запуском нужно заполнить `./env`, затем спроси провайдера/API-ключ и создай или обнови `./env`.
 
 Для DeepSeek:
 

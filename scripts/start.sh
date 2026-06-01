@@ -48,6 +48,57 @@ if [ ! -s "$APP_JAR" ]; then
     "Замените jasper_ai.jar корректным файлом в '$APP_JAR', затем снова выполните ./scripts/start.sh."
 fi
 
+if [ ! -f "$ENV_FILE" ]; then
+  if ! mkdir -p "$(dirname "$ENV_FILE")"; then
+    fail \
+      "ENV_DIR_CREATE_FAILED" \
+      "Не удалось создать папку для env-файла JasperAI: $(dirname "$ENV_FILE")" \
+      "Проверьте права на папку дистрибутива: $(dirname "$ENV_FILE")"
+  fi
+
+  fail \
+    "ENV_FILE_MISSING" \
+    "Файл переменных окружения JasperAI не найден: $ENV_FILE" \
+    "Создайте '$ENV_FILE' и заполните SPRING_AI_MODEL_CHAT и API-ключ выбранного провайдера, затем снова выполните ./scripts/start.sh."
+fi
+
+set -a
+# shellcheck disable=SC1090
+if ! . "$ENV_FILE"; then
+  set +a
+  fail \
+    "ENV_FILE_LOAD_FAILED" \
+    "Не удалось загрузить env-файл JasperAI: $ENV_FILE" \
+    "Проверьте, что '$ENV_FILE' содержит корректные shell-переменные, затем снова выполните ./scripts/start.sh."
+fi
+set +a
+
+provider="${SPRING_AI_MODEL_CHAT:-deepseek}"
+case "$provider" in
+  deepseek)
+    if [ -z "${DEEPSEEK_API_KEY:-}" ]; then
+      fail \
+        "DEEPSEEK_API_KEY_MISSING" \
+        "DEEPSEEK_API_KEY отсутствует в $ENV_FILE." \
+        "Заполните DEEPSEEK_API_KEY в '$ENV_FILE', затем снова выполните ./scripts/start.sh."
+    fi
+    ;;
+  gigachat)
+    if [ -z "${GIGACHAT_API_KEY:-}" ]; then
+      fail \
+        "GIGACHAT_API_KEY_MISSING" \
+        "GIGACHAT_API_KEY отсутствует в $ENV_FILE." \
+        "Заполните GIGACHAT_API_KEY в '$ENV_FILE', затем снова выполните ./scripts/start.sh."
+    fi
+    ;;
+  *)
+    fail \
+      "SPRING_AI_MODEL_CHAT_UNSUPPORTED" \
+      "Неподдерживаемый SPRING_AI_MODEL_CHAT в $ENV_FILE: $provider" \
+      "Укажите SPRING_AI_MODEL_CHAT='deepseek' или 'gigachat' в '$ENV_FILE', затем снова выполните ./scripts/start.sh."
+    ;;
+esac
+
 if ! mkdir -p "$LOG_DIR"; then
   fail \
     "LOG_DIR_CREATE_FAILED" \
@@ -77,57 +128,6 @@ if [ -z "$java_major" ] || [ "$java_major" -lt 17 ]; then
     "Требуется Java 17+. Текущая версия Java: ${java_version:-unknown}." \
     "Установите или выберите Java 17+, затем снова выполните ./scripts/start.sh."
 fi
-
-if [ ! -f "$ENV_FILE" ]; then
-  if ! mkdir -p "$(dirname "$ENV_FILE")"; then
-    fail \
-      "ENV_DIR_CREATE_FAILED" \
-      "Не удалось создать папку для env-файла JasperAI: $(dirname "$ENV_FILE")" \
-      "Проверьте права на папку дистрибутива: $(dirname "$ENV_FILE")"
-  fi
-
-  fail \
-    "ENV_FILE_MISSING" \
-    "Файл переменных окружения JasperAI не найден: $ENV_FILE" \
-    "Агент должен спросить у пользователя провайдера и API-ключ, создать '$ENV_FILE' с SPRING_AI_MODEL_CHAT и нужным ключом, затем снова выполнить ./scripts/start.sh."
-fi
-
-set -a
-# shellcheck disable=SC1090
-if ! . "$ENV_FILE"; then
-  set +a
-  fail \
-    "ENV_FILE_LOAD_FAILED" \
-    "Не удалось загрузить env-файл JasperAI: $ENV_FILE" \
-    "Проверьте, что '$ENV_FILE' содержит корректные shell-переменные, затем снова выполните ./scripts/start.sh."
-fi
-set +a
-
-provider="${SPRING_AI_MODEL_CHAT:-deepseek}"
-case "$provider" in
-  deepseek)
-    if [ -z "${DEEPSEEK_API_KEY:-}" ]; then
-      fail \
-        "DEEPSEEK_API_KEY_MISSING" \
-        "DEEPSEEK_API_KEY отсутствует в $ENV_FILE." \
-        "Спросите у пользователя API-ключ DeepSeek, добавьте DEEPSEEK_API_KEY в '$ENV_FILE', затем снова выполните ./scripts/start.sh."
-    fi
-    ;;
-  gigachat)
-    if [ -z "${GIGACHAT_API_KEY:-}" ]; then
-      fail \
-        "GIGACHAT_API_KEY_MISSING" \
-        "GIGACHAT_API_KEY отсутствует в $ENV_FILE." \
-        "Спросите у пользователя API-ключ GigaChat, добавьте GIGACHAT_API_KEY в '$ENV_FILE', затем снова выполните ./scripts/start.sh."
-    fi
-    ;;
-  *)
-    fail \
-      "SPRING_AI_MODEL_CHAT_UNSUPPORTED" \
-      "Неподдерживаемый SPRING_AI_MODEL_CHAT в $ENV_FILE: $provider" \
-      "Укажите SPRING_AI_MODEL_CHAT='deepseek' или 'gigachat' в '$ENV_FILE', затем снова выполните ./scripts/start.sh."
-    ;;
-esac
 
 echo "Запускаю JasperAI. Логи: $LOG_FILE"
 set +e

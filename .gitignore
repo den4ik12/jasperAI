@@ -37,6 +37,9 @@ build/
 .vscode/
 
 ### Development artifacts ###
+jasper_ai.jar
+env
+logs/
 src/main/resources/logs.txt
 archive/baseline
 .claude

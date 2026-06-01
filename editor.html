@@ -149,6 +149,34 @@
         }
         select:focus { border-color: #3b82f6; }
 
+        .file-source {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .file-source-input {
+            display: none;
+        }
+
+        .file-source-btn {
+            width: 100%;
+            padding: 8px 10px;
+            background: #f8fafc;
+            color: #1e293b;
+            border: 1px solid #e2e8f0;
+            font-size: 13px;
+        }
+
+        .file-source-name {
+            min-height: 14px;
+            font-size: 11px;
+            color: #64748b;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
         .divider { height: 1px; background: #f1f5f9; margin: 10px 0 0; }
 
         .print-area-panel {
@@ -615,13 +643,13 @@
                 <span>Отчёт</span>
             </div>
         </div>
-        <select id="templateSelect" onchange="changeTemplate(this.value)">
-            <option value="archive/source/c2c.html" selected>c2c</option>
-            <option value="archive/source/cript.html">cript</option>
-            <option value="archive/source/credit-3.html">credit-3</option>
-            <option value="archive/source/credit-4.html">credit-4</option>
-            <option value="archive/source/reclamation.html">reclamation</option>
-        </select>
+        <div class="file-source">
+            <input class="file-source-input" id="templateFileInput" type="file" accept=".html,.htm,text/html"
+                   onchange="handleTemplateFile(this.files[0])">
+            <button class="file-source-btn hint-tooltip" onclick="document.getElementById('templateFileInput').click()"
+                    data-hint="Выберите HTML-макет с компьютера" title="Выбрать HTML-файл">Выбрать HTML-файл</button>
+            <div class="file-source-name" id="templateFileName">Демо-макет: c2c.html</div>
+        </div>
         <select id="formatSelect" title="Целевой формат отчёта">
             <option value="SOURCE">Исходный</option>
             <option value="A4" selected>A4</option>
@@ -720,6 +748,7 @@
     let lastJrxml = null;
     let lastPreviewUrl = null;
     let selectingPrintArea = false;
+    let templateObjectUrl = null;
 
     // ── Demo hints ────────────────────────────────────────────────────────
 
@@ -770,11 +799,7 @@
 
     // ── Template ──────────────────────────────────────────────────────────
 
-    function changeTemplate(src) {
-        const frame = document.getElementById('documentFrame');
-        clearPrintAreaPicker();
-        frame.src = src;
-        frame.onload = updatePrintAreaInfo;
+    function resetTemplateState() {
         llmData = null;
         layoutData = null;
         selectedIndex = -1;
@@ -786,6 +811,46 @@
         showPlaceholder('Нажмите «Анализ»,\nзатем кликните на элемент');
         document.getElementById('legend').style.display = 'none';
         setDemoState('initial');
+    }
+
+    function changeTemplate(src, title = '') {
+        const frame = document.getElementById('documentFrame');
+        clearPrintAreaPicker();
+        if (templateObjectUrl) {
+            URL.revokeObjectURL(templateObjectUrl);
+            templateObjectUrl = null;
+        }
+        frame.src = src;
+        frame.onload = () => {
+            setPrintAreaSelector('[class*="Pixso-frame"]');
+            updatePrintAreaInfo();
+        };
+        if (title) {
+            document.getElementById('templateFileName').textContent = title;
+        }
+        resetTemplateState();
+    }
+
+    function handleTemplateFile(file) {
+        if (!file) return;
+        const isHtml = file.type === 'text/html' || /\.(html?|xhtml)$/i.test(file.name);
+        if (!isHtml) {
+            setStatus('Выберите HTML-файл');
+            document.getElementById('templateFileInput').value = '';
+            return;
+        }
+
+        const frame = document.getElementById('documentFrame');
+        clearPrintAreaPicker();
+        if (templateObjectUrl) URL.revokeObjectURL(templateObjectUrl);
+        templateObjectUrl = URL.createObjectURL(file);
+        frame.onload = () => {
+            setPrintAreaSelector('[class*="Pixso-frame"]');
+            updatePrintAreaInfo();
+        };
+        frame.src = templateObjectUrl;
+        document.getElementById('templateFileName').textContent = file.name;
+        resetTemplateState();
     }
 
     function cssSelectorForElement(element) {

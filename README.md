@@ -1,125 +1,145 @@
 # JasperAI
 
-Сервис автоматической генерации JasperReports-шаблонов (`.jrxml`) из HTML-макетов с помощью LLM (DeepSeek / GigaChat).
+JasperAI - Spring Boot сервис для генерации JasperReports-шаблонов (`.jrxml`) из HTML-макетов с помощью LLM. Поддерживаются DeepSeek и GigaChat.
 
 ## Что делает
 
-1. Принимает HTML-макет документа
-2. Извлекает структуру элементов (текст, поля, фигуры, изображения) через LLM
-3. Обогащает элементы координатами из браузерного рендера
-4. Масштабирует координаты под целевой формат страницы (A4, A3, Letter и др.)
-5. Генерирует валидный `.jrxml` через JasperReports API
-6. Автоматически исправляет ошибки компиляции с помощью LLM (до 5 попыток)
+1. Принимает HTML-макет документа.
+2. Извлекает структуру элементов через LLM: текст, поля данных, прямоугольники, изображения и группировки.
+3. Обогащает элементы координатами из браузерного рендера.
+4. Масштабирует координаты под целевой формат страницы.
+5. Группирует связанные блоки во фреймы и настраивает динамическое растяжение текста.
+6. Генерирует `.jrxml` через JasperReports API.
+7. Компилирует результат и при ошибках пытается исправить JRXML через LLM.
+8. Может сформировать PDF-превью и варианты JSON-данных для проверки отчета.
 
-## Стек технологий
+## Стек
 
 | Компонент | Версия |
 |-----------|--------|
-| Java | 17 |
+| Java | 17+ |
 | Spring Boot | 3.5.13 |
 | Spring AI | 1.1.3 |
 | JasperReports | 6.21.3 |
 | GigaChat Spring AI Starter | 1.1.1 |
-| Lombok | — |
 | Maven | Wrapper |
 
-## Быстрый старт
-
-### Предварительные требования
-
-- JDK 17+
-- API-ключ DeepSeek или GigaChat
-
-### Настройка
-
-Укажите API-ключи через переменные окружения:
-
-```bash
-# Выбор провайдера: deepseek или gigachat
-export SPRING_AI_MODEL_CHAT=gigachat
-
-# DeepSeek
-export DEEPSEEK_API_KEY=YOUR_KEY
-
-# GigaChat
-export GIGACHAT_API_KEY=YOUR_KEY
-```
-
-Для запуска через `./scripts/start.sh` можно положить ключи в локальный файл `~/.jasperai/env`:
-
-```bash
-SPRING_AI_MODEL_CHAT=gigachat
-DEEPSEEK_API_KEY=YOUR_KEY
-GIGACHAT_API_KEY=YOUR_KEY
-```
-
-Если файла `~/.jasperai/env` нет, `./scripts/start.sh` не спрашивает ввод интерактивно. Скрипт возвращает структурированную ошибку `ENV_FILE_MISSING`, а агент должен спросить у пользователя провайдера/API-ключ и создать env-файл.
-
-### Сборка и запуск
-
-```bash
-./mvnw clean install -Dmaven.test.skip=true
-./mvnw spring-boot:run
-```
-
-> **Примечание:** тесты в текущей версии падают, поэтому сборка выполняется с флагом `-DskipTests`.
-
-### Тесты
-
-```bash
-./mvnw test
-```
-
-## Локальный запуск через Qwen CLI
+## Быстрый старт для разработки
 
 ### Требования
 
-- Java 17+.
-- Qwen CLI с доступом к этому репозиторию/папке проекта.
+- JDK 17+.
+- API-ключ DeepSeek или GigaChat.
 
-### Команды
-
-Обновление:
+### Переменные окружения
 
 ```bash
-./scripts/update.sh
+# Провайдер: deepseek или gigachat
+export SPRING_AI_MODEL_CHAT=deepseek
+
+# Для DeepSeek
+export DEEPSEEK_API_KEY=YOUR_KEY
+
+# Для GigaChat
+export GIGACHAT_API_KEY=YOUR_KEY
 ```
 
-Запуск:
+По умолчанию в `application.properties` выбран `deepseek`.
+
+### Сборка
+
+```bash
+./mvnw clean package
+```
+
+Проект не содержит тестового контура: директория `src/test` и тестовые зависимости отсутствуют.
+
+### Запуск из исходников
+
+```bash
+./mvnw spring-boot:run
+```
+
+После старта откройте редактор: `http://localhost:8080/`.
+
+## Локальный запуск дистрибутива
+
+Папка дистрибутива - это папка, в которой лежит `scripts/start.sh`. Все служебные файлы запуска лежат в корне этой папки:
+
+- `jasper_ai.jar` - исполняемый JAR;
+- `env` - переменные окружения для выбранного LLM-провайдера;
+- `logs/` - логи запуска, создается автоматически.
+
+Если JAR собран из исходников командой `./mvnw clean package`, Maven создаст файл `target/jasper_ai.jar`. Скопируйте его в корень папки дистрибутива как `jasper_ai.jar`.
+
+### Настройка env-файла
+
+Для `./scripts/start.sh` нужен файл `env` в корне папки дистрибутива:
+
+```bash
+SPRING_AI_MODEL_CHAT=deepseek
+DEEPSEEK_API_KEY=YOUR_KEY
+```
+
+Для GigaChat:
+
+```bash
+SPRING_AI_MODEL_CHAT=gigachat
+GIGACHAT_API_KEY=YOUR_KEY
+```
+
+### Запуск
+
+Последовательность запуска:
+
+1. Убедитесь, что в корне папки дистрибутива есть `jasper_ai.jar`.
+2. Создайте `env` в корне папки дистрибутива.
+3. Проверьте, не занят ли порт `8080` уже запущенным приложением:
+
+```bash
+lsof -nP -iTCP:8080 -sTCP:LISTEN
+```
+
+Если команда ничего не выводит, порт свободен и можно запускать приложение.
+Если команда выводит процесс Java/JasperAI, приложение уже запущено.
+Если порт занят другим процессом, освободите порт или измените порт запуска.
+
+4. Запустите приложение:
 
 ```bash
 ./scripts/start.sh
 ```
 
-### Qwen CLI skill
+`start` проверяет наличие и размер `jasper_ai.jar` рядом с папкой `scripts`, версию Java, env-файл и нужный API-ключ. Логи приложения пишутся в `logs/jasperai.log` в той же папке дистрибутива.
 
-Skill лежит в `.qwen/skills/local-app/SKILL.md`.
-Skill относится только к JasperAI: если команда "запусти приложение" или "обнови приложение" неоднозначна, Qwen CLI должен уточнить, какое приложение имеется в виду.
+При ошибках скрипты выводят структурированные поля:
 
-- "запусти приложение" -> `./scripts/start.sh`
-- "обнови приложение" -> `./scripts/update.sh`
-- "обнови и запусти приложение" -> `./scripts/update.sh`, потом `./scripts/start.sh`
+- `JASPERAI_ERROR_CODE`
+- `JASPERAI_ERROR_MESSAGE`
+- `JASPERAI_NEXT_STEP`
+- `JASPERAI_LOG_FILE`, если есть лог приложения
 
-### Поведение
+Запуск не обновляет приложение автоматически.
 
-- `update` скачивает последнюю версию `app.jar` из GitHub Releases в `~/.jasperai/app.jar`.
-- `start` проверяет наличие `app.jar`, Java 17+, экспортирует переменные из `~/.jasperai/env` и запускает локальный `app.jar`.
-- Qwen CLI skill перед запуском должен сначала проверить `~/.jasperai/app.jar`; если JAR отсутствует или пустой, сначала выполнить `./scripts/update.sh`, и только после успешного обновления запускать `./scripts/start.sh`.
-- если `~/.jasperai/env` отсутствует, `start` возвращает `ENV_FILE_MISSING`; env-файл должен создать агент после запроса провайдера и API-ключа у пользователя.
-- логи Java-процесса пишутся в `~/.jasperai/logs/jasperai.log`.
-- при ошибках скрипты выводят `JASPERAI_ERROR_CODE`, `JASPERAI_ERROR_MESSAGE` и `JASPERAI_NEXT_STEP`, чтобы CLI/AI мог понять причину и следующий шаг.
-- если Java-процесс завершился с ошибкой приложения, `start` выводит путь к лог-файлу и просит передать его разработчику Денису Володину, не печатая лог пользователю.
-- Запуск не обновляет приложение автоматически.
-- Обновление не запускает приложение автоматически.
+### Остановка
+
+Команда остановки ищет процесс, который слушает порт `8080`, и завершает его через `kill`:
+
+```bash
+./scripts/stop.sh
+```
+
+Если порт свободен, скрипт сообщит, что JasperAI не запущен. Если порт занят, перед завершением скрипт покажет найденный процесс.
 
 ## API
 
-### `POST /api/report/extract`
+Базовый путь: `/api/report`.
 
-Извлечение структуры элементов из HTML-макета.
+### `POST /extract`
 
-**Content-Type:** `application/json`
-**Ответ:** `application/json`
+Извлекает структуру элементов из HTML-макета.
+
+Запрос:
 
 ```json
 {
@@ -127,14 +147,13 @@ Skill относится только к JasperAI: если команда "за
 }
 ```
 
-Возвращает `LlmTemplateData` — плоский список элементов с типами, стилями и группировками.
+Ответ: `application/json`, объект `LlmTemplateData`.
 
-### `POST /api/report/generate`
+### `POST /generate`
 
-Генерация JRXML из HTML с координатами элементов.
+Генерирует и валидирует JRXML.
 
-**Content-Type:** `application/json`
-**Ответ:** `application/xml`
+Запрос:
 
 ```json
 {
@@ -142,100 +161,96 @@ Skill относится только к JasperAI: если команда "за
   "coordinates": [
     { "id": "element_1", "x": 10, "y": 20, "width": 200, "height": 30 }
   ],
-  "llmTemplateData": { "elements": [...] },
+  "llmTemplateData": { "elements": [] },
   "targetFormat": "A4",
   "pageWidth": 800,
-  "pageHeight": 1130
+  "pageHeight": 1130,
+  "printArea": null
 }
 ```
 
-Возвращает готовый `.jrxml`, прошедший валидацию компилятором JasperReports.
+Ответ: `application/xml`, готовый `.jrxml`.
 
-## Использование через UI
+### `POST /preview/pdf`
 
-В корне проекта находится `editor.html` — визуальный редактор для генерации отчётов.
+Генерирует PDF-превью по тому же запросу, что и `/generate`.
 
-### Запуск
+Ответ: `application/pdf`.
 
-1. Запустите бэкенд:
+### `POST /test-data`
 
-```bash
-./mvnw spring-boot:run
+Генерирует 5 вариантов JSON-данных для JasperReports `JsonDataSource`.
+
+Запрос:
+
+```json
+{
+  "jrxml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>..."
+}
 ```
 
-2. Откройте редактор в браузере: `http://localhost:8080/`.
+Ответ: `application/json`, список вариантов с данными.
 
-### Рабочий процесс
+## UI
 
-1. **Выбор шаблона** — в правой панели выберите HTML-макет из выпадающего списка (c2c, credit-1..5, reclamation). Макет отобразится в iframe слева.
+Главный интерфейс - `editor.html`, доступен по адресу `http://localhost:8080/`.
 
-2. **Выбор формата** — укажите целевой формат страницы (A4, A3, A5, Letter, Legal).
+Перед открытием UI приложение должно быть запущено, а порт `8080` должен слушать процесс JasperAI.
 
-3. **Извлечение элементов** — нажмите кнопку **"Извлечь"**. LLM проанализирует HTML и определит все элементы макета. После извлечения на макете появятся цветные рамки:
-   - синие — поля данных (`TEXT_FIELD`)
-   - жёлтые — статичный текст (`STATIC_TEXT`)
+Рабочий процесс:
 
-4. **Редактирование** — кликните на любой выделенный элемент, чтобы:
-   - переключить тип (поле данных / статичный текст)
-   - изменить содержимое (имя поля или текст)
+1. Нажмите `Выбрать HTML-файл` и выберите HTML-макет с компьютера.
+2. Выберите формат страницы: `A3`, `A4`, `A5`, `LETTER` или `LEGAL`.
+3. Нажмите `Извлечь`, чтобы LLM построила структуру элементов.
+4. При необходимости отредактируйте найденные элементы в интерфейсе.
+5. Нажмите `Сгенерировать`, чтобы получить JRXML.
+6. Используйте PDF-превью для быстрой визуальной проверки результата.
 
-5. **Генерация** — нажмите **"Сгенерировать"**. Сервис соберёт JRXML, провалидирует его и автоматически скачает файл `report.jrxml`.
+Отдельная страница `test-data.html` помогает сгенерировать варианты JSON-данных по готовому JRXML.
 
-### Добавление собственного шаблона
+### Добавление HTML-макета
 
-Положите HTML-файл в `archive/source/` и добавьте `<option>` в селектор `#templateSelect` в `editor.html`:
-
-```html
-<option value="archive/source/my-template.html">my-template</option>
-```
+Дополнительная настройка больше не нужна: выберите нужный `.html` или `.htm` файл через кнопку `Выбрать HTML-файл` в правой панели редактора.
 
 ## Архитектура
 
-### Pipeline
-
 Генерация построена на последовательном пайплайне шагов (`PipelineStep`):
 
-```
-HTML ──► Extract Pipeline
-         └─ HtmlStructuredExtractionStep    — LLM парсит HTML → LlmTemplateData
+```text
+HTML -> Extract Pipeline
+        HtmlStructuredExtractionStep -> LlmTemplateData
 
-HTML + Coordinates + LlmTemplateData ──► Generate Pipeline
-         ├─ EmptyStaticTextFilterStep       — удаление пустых текстовых элементов
-         ├─ CoordinateEnrichmentStep        — привязка координат к элементам
-         ├─ CoordinateScalingStep           — масштабирование под целевой формат
-         ├─ FrameGroupingStep              — группировка элементов во фреймы
-         ├─ DynamicStretchStep             — настройка растяжения текста
-         ├─ HideEmptyRowsStep             — скрытие пустых строк
-         ├─ JrxmlGenerationStep           — сборка JasperDesign → JRXML
-         └─ JrxmlValidationStep           — компиляция + авто-исправление через LLM
+HTML + Coordinates + LlmTemplateData -> Generate Pipeline
+        EmptyStaticTextFilterStep
+        CoordinateEnrichmentStep
+        CoordinateScalingStep
+        FrameGroupingStep
+        DynamicStretchStep
+        HideEmptyRowsStep
+        JrxmlGenerationStep
+        JrxmlValidationStep
 ```
 
-### Типы элементов
+Основные типы элементов:
 
 | Тип | Описание |
 |-----|----------|
-| `STATIC_TEXT` | Фиксированный текст (заголовки, подписи) |
-| `TEXT_FIELD` | Динамическое поле (параметры отчёта) |
-| `RECTANGLE` | Фоновые блоки, рамки, разделители |
-| `IMAGE` | Изображения (img, background-image) |
-
-### Форматы страниц
-
-`A3`, `A4`, `A5`, `LETTER`, `LEGAL`
+| `STATIC_TEXT` | Фиксированный текст: заголовки, подписи, служебные строки |
+| `TEXT_FIELD` | Динамическое поле отчета |
+| `RECTANGLE` | Фон, рамка, разделитель или декоративный блок |
+| `IMAGE` | Изображение из `img` или CSS-фона |
 
 ## Структура проекта
 
-```
+```text
 src/main/java/ru/volodin/jasperai/
-├── controller/             — REST API
-│   └── dto/                — DTO запросов (GenerateRequest, Coordinate)
-├── domain/                 — доменные модели (LlmElement, JrxmlElement, PageFormat)
+├── controller/             REST API и маршрутизация UI
+│   └── dto/                DTO запросов
+├── domain/                 Доменные модели LLM/JRXML/страниц
 ├── jrxml/
-│   ├── converter/          — конвертеры элементов в JasperReports-объекты
-│   │   └── impl/           — StaticText, TextField, Rectangle, Image
-│   └── style/              — генерация стилей (StyleKey)
-├── pipeline/               — движок пайплайна (Pipeline, PipelineStep, PipelineContext)
-│   └── step/               — шаги пайплайна
-└── service/                — бизнес-логика
-    └── validation/         — компиляция и авто-исправление JRXML
+│   ├── converter/          Конвертация элементов в JasperReports-объекты
+│   └── style/              Ключи и переиспользование стилей
+├── pipeline/               Движок пайплайна
+│   └── step/               Шаги извлечения, подготовки и генерации
+└── service/                Бизнес-логика, preview, тестовые данные, validation
 ```

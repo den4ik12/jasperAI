@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-APP_JAR="$HOME/.jasperai/app.jar"
-ENV_FILE="$HOME/.jasperai/env"
-LOG_DIR="$HOME/.jasperai/logs"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+APP_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+APP_JAR="$APP_DIR/jasper_ai.jar"
+ENV_FILE="$APP_DIR/env"
+LOG_DIR="$APP_DIR/logs"
 LOG_FILE="$LOG_DIR/jasperai.log"
 
 fail() {
@@ -35,22 +37,22 @@ fail_with_log_file() {
 if [ ! -f "$APP_JAR" ]; then
   fail \
     "APP_JAR_NOT_FOUND" \
-    "app.jar для JasperAI не найден: $APP_JAR" \
-    "Выполните ./scripts/update.sh, чтобы скачать app.jar, затем снова выполните ./scripts/start.sh."
+    "jasper_ai.jar для JasperAI не найден: $APP_JAR" \
+    "Соберите или поместите jasper_ai.jar в '$APP_JAR', затем снова выполните ./scripts/start.sh."
 fi
 
 if [ ! -s "$APP_JAR" ]; then
   fail \
     "APP_JAR_EMPTY" \
-    "app.jar для JasperAI пустой или битый: $APP_JAR" \
-    "Выполните ./scripts/update.sh, чтобы скачать app.jar заново, затем снова выполните ./scripts/start.sh."
+    "jasper_ai.jar для JasperAI пустой или битый: $APP_JAR" \
+    "Замените jasper_ai.jar корректным файлом в '$APP_JAR', затем снова выполните ./scripts/start.sh."
 fi
 
 if ! mkdir -p "$LOG_DIR"; then
   fail \
     "LOG_DIR_CREATE_FAILED" \
     "Не удалось создать папку логов JasperAI: $LOG_DIR" \
-    "Проверьте права на HOME или создайте папку вручную: mkdir -p '$LOG_DIR'"
+    "Проверьте права на папку дистрибутива или создайте папку вручную: mkdir -p '$LOG_DIR'"
 fi
 
 if ! touch "$LOG_FILE"; then
@@ -81,13 +83,13 @@ if [ ! -f "$ENV_FILE" ]; then
     fail \
       "ENV_DIR_CREATE_FAILED" \
       "Не удалось создать папку для env-файла JasperAI: $(dirname "$ENV_FILE")" \
-      "Проверьте права на HOME или создайте папку вручную: mkdir -p '$(dirname "$ENV_FILE")'"
+      "Проверьте права на папку дистрибутива: $(dirname "$ENV_FILE")"
   fi
 
   fail \
     "ENV_FILE_MISSING" \
     "Файл переменных окружения JasperAI не найден: $ENV_FILE" \
-    "Агент должен спросить у пользователя провайдера и API-ключ, создать '$ENV_FILE' с SPRING_AI_MODEL_CHAT и нужным ключом, выполнить chmod 600 '$ENV_FILE', затем снова выполнить ./scripts/start.sh."
+    "Агент должен спросить у пользователя провайдера и API-ключ, создать '$ENV_FILE' с SPRING_AI_MODEL_CHAT и нужным ключом, затем снова выполнить ./scripts/start.sh."
 fi
 
 set -a

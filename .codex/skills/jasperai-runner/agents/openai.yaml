@@ -1,6 +1,0 @@
-interface:
-  display_name: "JasperAI Runner"
-  short_description: "Clone, build, and run JasperAI"
-  default_prompt: "Use $jasperai-runner to install and run JasperAI with my selected DeepSeek or GigaChat model."
-policy:
-  allow_implicit_invocation: true

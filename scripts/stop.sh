@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-APP_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+APP_DIR="$SCRIPT_DIR"
 LOG_DIR="$APP_DIR/logs"
 PORT="${JASPERAI_PORT:-8080}"
 

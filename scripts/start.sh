@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-APP_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+APP_DIR="$SCRIPT_DIR"
 APP_JAR="$APP_DIR/jasper_ai.jar"
 ENV_FILE="$APP_DIR/env"
 LOG_DIR="$APP_DIR/logs"
